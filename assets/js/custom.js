@@ -14,29 +14,63 @@ fetch("food.json")
         console.error("Unable to fetch data:", error));
 
 function retrieveData(arrayData) {
-    const homepage = document.querySelector(".home-elements")
+    const homepage = document.querySelector(".home-elements");
 
     homepage.innerHTML += `<ul>
                               <li>ID</li>
                               <li>Name</li>
                               <li>Nutritional Info</li>
-                              <li>Tags</li>`
-    /** SHOWING ONLY 1 ELEMENT FROM THE JSON FILE, TO SHOW ALL OF THEM CHANGE NUMBER 1 TO (arrayData.length) */
-    for (let i = 0; i < 1; i++) {
+                              <li>Tags</li>`;
+
+    for (let i = 0; i < arrayData.length; i++) {
         homepage.innerHTML += `<ul>
                                     <li>${arrayData[i].id}</li>
                                     <li>${arrayData[i].name}</li>
-                                    <li><a onclick="nutritionInformation(${arrayData[i]['nutrition-per-100g']})">View nutritional info</a></li>
+                                    <li><a class="btn-open" data-index="${i}">View nutritional info</a></li>
                                     <li>${arrayData[i]['tags'] ? arrayData[i]['tags'] : "N/A"}</li>
-                                </ul>`
+                                </ul>`;
     }
-    homepage.innerHTML += `</ul>`
+    homepage.innerHTML += `</ul>`;
 
-    console.table(arrayData)
+    const openModalBtn = document.querySelectorAll(".btn-open");
+    openModalBtn.forEach(elem => {
+        elem.removeEventListener("click", nutritionInformation);
+        elem.addEventListener("click", nutritionInformation.bind(null, arrayData));
+    });
 }
 
-function nutritionInformation(nutriInfo) {
-    console.log(nutriInfo)
+function nutritionInformation(arrayData, ev) {
+    const modal = document.querySelector(".modal");
+    const overlay = document.querySelector(".overlay");
+    const closeModalBtn = document.querySelector(".btn-close");
+
+    const openModal = function () {
+        modal.classList.remove("hidden");
+        overlay.classList.remove("hidden");
+    };
+
+    const closeModal = function () {
+        modal.classList.add("hidden");
+        overlay.classList.add("hidden");
+    };
+
+    closeModalBtn.addEventListener("click", closeModal);
+    overlay.addEventListener("click", closeModal);
+
+    document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape" && !modal.classList.contains("hidden")) {
+            closeModal();
+        }
+    });
+
+    const dataIndex = ev.target.getAttribute("data-index");
+
+    const info = arrayData[dataIndex];
+
+    /** DEBUG PURPOSES */
+    console.table(info);
+
+    openModal();
 }
 
 /**
@@ -49,7 +83,7 @@ function login() {
     let errorMessage = document.querySelector("span");
 
     form.addEventListener('submit', function (e) {
-        e.preventDefault();
+        e.prevDefault();
 
         if (fieldEmail.value !== 'admin' || fieldPassword.value !== '1234') {
             errorMessage.innerHTML = "User or Password doesn't exist";
