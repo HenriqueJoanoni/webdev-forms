@@ -6,14 +6,13 @@
 }
 
 .body-login {
-    background-image: url("../img/pic1.jpg");
+    background-image: url("../img/pic4.jpg");
 }
 
 body {
     margin: 0;
     padding: 0;
     background-size: cover;
-    overflow: hidden;
 }
 
 .general {
@@ -58,17 +57,15 @@ input {
 }
 
 button {
-    width: 125px;
-    height: 50px;
+    width: 52px;
+    height: 40px;
     border: none;
-    background-color: #31304D;
-    color: white;
     border-radius: 10px;
     transition-duration: 0.4s;
 }
 
 button:hover {
-    background-color: #f755c5;
+    background-color: #779AE4;
     color: #48484BFF;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
     cursor: pointer;
@@ -116,8 +113,7 @@ span {
 .modal {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    gap: 0.4rem;
+    gap: 0.9rem;
     width: 450px;
     padding: 1.3rem;
     min-height: 250px;
@@ -131,8 +127,8 @@ span {
 
 .modal .flex {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
+    align-items: flex-start;
+    justify-content: right;
 }
 
 .btn {
@@ -147,10 +143,9 @@ span {
 }
 
 .btn-close {
-    transform: translate(10px, -20px);
+    transform: translate(10px, -10px);
     padding: 0.5rem 0.7rem;
-    background: #eee;
-    border-radius: 50%;
+    background: #fff;
     cursor: pointer;
 }
 
