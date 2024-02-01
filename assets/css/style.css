@@ -17,7 +17,11 @@ body {
 
 .general {
     display: flex;
-    justify-content: center;
+    flex-direction:column;
+}
+
+.search{
+    margin-right:200px;
 }
 
 .container {
