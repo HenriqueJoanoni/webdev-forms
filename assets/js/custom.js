@@ -44,6 +44,10 @@ function nutritionInformation(arrayData, ev) {
     const overlay = document.querySelector(".overlay");
     const closeModalBtn = document.querySelector(".btn-close");
 
+    /** MODAL DATA */
+    const modalTitle = document.querySelector("#modal-title")
+    const modalBody = document.querySelector("#modal-info")
+
     const openModal = function () {
         modal.classList.remove("hidden");
         overlay.classList.remove("hidden");
@@ -64,11 +68,25 @@ function nutritionInformation(arrayData, ev) {
     });
 
     const dataIndex = ev.target.getAttribute("data-index");
+    const completeInfo = arrayData[dataIndex];
 
-    const info = arrayData[dataIndex];
+    modalTitle.innerHTML = completeInfo.name;
+
+    let newInfo = Array.from(completeInfo['nutrition-per-100g']);
+
+    newInfo.forEach(info => {
+        modalBody.innerHTML += `
+            <td>${info['energy']}</td>
+        `
+    })
+
+    for (let i = 0; i < arrayData.length; i++) {
+        // console.log(arrayData)
+        console.log(arrayData[i]['nutrition-per-100g'])
+    }
 
     /** DEBUG PURPOSES */
-    console.table(info);
+    // console.table(completeInfo);
 
     openModal();
 }
@@ -83,7 +101,7 @@ function login() {
     let errorMessage = document.querySelector("span");
 
     form.addEventListener('submit', function (e) {
-        e.prevDefault();
+        e.preventDefault();
 
         if (fieldEmail.value !== 'admin' || fieldPassword.value !== '1234') {
             errorMessage.innerHTML = "User or Password doesn't exist";
