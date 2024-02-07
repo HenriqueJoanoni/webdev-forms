@@ -32,7 +32,7 @@ function retrieveData(arrayData) {
                                   <li>Tags</li>`;
 
         arrayData.forEach((item, i) => {
-            // Check if item matches search term (if provided)
+            /** CHECK IF ITEM MATCHES SEARCH TERM (IF PROVIDED) */
             if (!searchTerm || item.name.toLowerCase().includes(searchTerm.toLowerCase())) {
                 homepage.innerHTML += `<ul>
                                           <li>${item.id}</li>
@@ -56,8 +56,8 @@ function retrieveData(arrayData) {
     updateTable();
 
     /** EVENT LISTENER TO SEARCH FOR THE TERM */
-    submitButton.addEventListener("click", function (event) {
-        event.preventDefault(); // Prevent form submission
+    submitButton.addEventListener("click", function (e) {
+        e.preventDefault(); /** Prevent form submission */
 
         const searchTerm = searchField.value.trim();
         updateTable(searchTerm);
@@ -91,7 +91,6 @@ function nutritionInformation(arrayData, ev) {
     /** GET INFORMATION ONCE THE CLICK EVENT HAPPENS */
     const dataIndex = ev.target.getAttribute("data-index");
     const info = arrayData[dataIndex];
-
 
     /** GENERATE HTML CONTENT FOR NUTRITIONAL INFORMATION */
     modal.querySelector(".modal-content").innerHTML = `
