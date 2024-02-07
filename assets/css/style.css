@@ -17,7 +17,11 @@ body {
 
 .general {
     display: flex;
-    justify-content: center;
+    flex-direction:column;
+}
+
+.search-bar{
+    margin-right:200px;
 }
 
 .container {
@@ -31,6 +35,16 @@ body {
     padding: 0 15px;
 }
 
+.search-container {
+    max-width: 990px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0 15px;
+}
+
 .form-container {
     text-align: center;
     width: 100%;
@@ -40,6 +54,12 @@ body {
     border-radius: 5px;
     backdrop-filter: blur(10px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
+}
+
+.label-search {
+    display: block;
+    margin-bottom: 5px;
+    color: #607274;
 }
 
 label {
