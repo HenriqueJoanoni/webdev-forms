@@ -15,27 +15,52 @@ fetch("food.json")
 
 function retrieveData(arrayData) {
     const homepage = document.querySelector(".home-elements");
+    const submitButton = document.querySelector("#search-button");
+    const searchField = document.querySelector("#search-field");
 
-    homepage.innerHTML += `<ul>
-                              <li>ID</li>
-                              <li>Name</li>
-                              <li>Nutritional Info</li>
-                              <li>Tags</li>`;
+    /**
+     * THIS FUNCTION IS RESPONSIBLE TO REGENERATE THE TABLE
+     * ONCE THE SEARCH TERM IS TYPED ON SEARCH FIELD
+     */
+    function updateTable(searchTerm) {
+        homepage.innerHTML = '';
 
-    for (let i = 0; i < arrayData.length; i++) {
         homepage.innerHTML += `<ul>
-                                    <li>${arrayData[i].id}</li>
-                                    <li>${arrayData[i].name}</li>
-                                    <li><a class="btn-open" data-index="${i}">View nutritional info</a></li>
-                                    <li>${arrayData[i]['tags'] ? arrayData[i]['tags'] : "N/A"}</li>
-                                </ul>`;
-    }
-    homepage.innerHTML += `</ul>`;
+                                  <li>ID</li>
+                                  <li>Name</li>
+                                  <li>Nutritional Info</li>
+                                  <li>Tags</li>`;
 
-    const openModalBtn = document.querySelectorAll(".btn-open");
-    openModalBtn.forEach(elem => {
-        elem.removeEventListener("click", nutritionInformation);
-        elem.addEventListener("click", nutritionInformation.bind(null, arrayData));
+        arrayData.forEach((item, i) => {
+            // Check if item matches search term (if provided)
+            if (!searchTerm || item.name.toLowerCase().includes(searchTerm.toLowerCase())) {
+                homepage.innerHTML += `<ul>
+                                          <li>${item.id}</li>
+                                          <li>${item.name}</li>
+                                          <li><a class="btn-open" data-index="${i}">View nutritional info</a></li>
+                                          <li>${item.tags ? item.tags : "N/A"}</li>
+                                      </ul>`;
+            }
+        });
+
+        homepage.innerHTML += `</ul>`;
+
+        const openModalBtn = document.querySelectorAll(".btn-open");
+        openModalBtn.forEach(elem => {
+            elem.removeEventListener("click", nutritionInformation);
+            elem.addEventListener("click", nutritionInformation.bind(null, arrayData));
+        });
+    }
+
+    /** RENDERS TABLE FOR THE FIRST TIME ONCE THE PAGE IS OPENED */
+    updateTable();
+
+    /** EVENT LISTENER TO SEARCH FOR THE TERM */
+    submitButton.addEventListener("click", function (event) {
+        event.preventDefault(); // Prevent form submission
+
+        const searchTerm = searchField.value.trim();
+        updateTable(searchTerm);
     });
 }
 
@@ -43,10 +68,6 @@ function nutritionInformation(arrayData, ev) {
     const modal = document.querySelector(".modal");
     const overlay = document.querySelector(".overlay");
     const closeModalBtn = document.querySelector(".btn-close");
-
-    /** MODAL DATA */
-    const modalTitle = document.querySelector("#modal-title")
-    const modalBody = document.querySelector("#modal-info")
 
     const openModal = function () {
         modal.classList.remove("hidden");
@@ -67,26 +88,25 @@ function nutritionInformation(arrayData, ev) {
         }
     });
 
+    /** GET INFORMATION ONCE THE CLICK EVENT HAPPENS */
     const dataIndex = ev.target.getAttribute("data-index");
-    const completeInfo = arrayData[dataIndex];
+    const info = arrayData[dataIndex];
 
-    modalTitle.innerHTML = completeInfo.name;
 
-    let newInfo = Array.from(completeInfo['nutrition-per-100g']);
-
-    newInfo.forEach(info => {
-        modalBody.innerHTML += `
-            <td>${info['energy']}</td>
-        `
-    })
-
-    for (let i = 0; i < arrayData.length; i++) {
-        // console.log(arrayData)
-        console.log(arrayData[i]['nutrition-per-100g'])
-    }
-
-    /** DEBUG PURPOSES */
-    // console.table(completeInfo);
+    /** GENERATE HTML CONTENT FOR NUTRITIONAL INFORMATION */
+    modal.querySelector(".modal-content").innerHTML = `
+        <h3>Nutritional Information</h3>
+        <ul>
+            <li>Energy: ${info['nutrition-per-100g'].energy} kJ</li>
+            <li>Protein: ${info['nutrition-per-100g'].protein} g</li>
+            <li>Fat: ${info['nutrition-per-100g'].fat} g</li>
+            <li>Saturated Fat: ${info['nutrition-per-100g']['saturated-fat']} g</li>
+            <li>Carbohydrate: ${info['nutrition-per-100g'].carbohydrate} g</li>
+            <li>Sugars: ${info['nutrition-per-100g'].sugars} g</li>
+            <li>Dietary Fibre: ${info['nutrition-per-100g']['dietary-fibre']} g</li>
+            <li>Sodium: ${info['nutrition-per-100g'].sodium} mg</li>
+        </ul>
+    `;
 
     openModal();
 }
