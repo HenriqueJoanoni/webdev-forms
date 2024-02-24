@@ -204,7 +204,7 @@ function insertTags(inputEntry, info) {
 
         /** CALL THE MAIN FUNCTION AND SET THE NEW DATA TO UPDATE THE TABLE */
         retrieveData(inputEntry);
-        alertHandler(closeManager);
+        alertHandler(closeManager, 'insert');
     });
 
     document.getElementById('cancel-button').addEventListener('click', closeManager);
@@ -237,7 +237,7 @@ function editTags(inputEntry, info) {
 
         // CALL THE MAIN FUNCTION AND SET THE NEW DATA TO UPDATE THE TABLE
         retrieveData(inputEntry);
-        alertHandler(closeManager);
+        alertHandler(closeManager, 'edit');
     };
 
     /** CREATE NEW FIELDS FOR EACH TAG */
@@ -261,8 +261,10 @@ function editTags(inputEntry, info) {
 /**
  * TOAST ALERT
  */
-function alertHandler(closeManager) {
+function alertHandler(closeManager, type) {
     let alerts = document.getElementById("alert-container");
+    const insertMessage = "Tag inserted successfully!!";
+    const editMessage = "Tag edited successfully!!";
 
     if (alerts.childElementCount < 2) {
         /** CREATE ALERT BOX */
@@ -270,7 +272,11 @@ function alertHandler(closeManager) {
         alertBox.classList.add("alert-msg", "slide-in");
 
         /** ADD MESSAGE TO ALERT BOX */
-        let alertMsg = document.createTextNode("Tag inserted successfully!!");
+        let alertMsg =
+            (type === 'insert') ?
+            document.createTextNode(insertMessage) :
+            document.createTextNode(editMessage);
+
         alertBox.appendChild(alertMsg);
 
         /** ADD ALERT BOX TO PARENT */
