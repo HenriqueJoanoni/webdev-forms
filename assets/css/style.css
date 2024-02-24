@@ -77,11 +77,12 @@ input {
 }
 
 button {
-    width: 52px;
+    width: auto;
     height: 40px;
     border: none;
     border-radius: 10px;
     transition-duration: 0.4s;
+    padding: 10px;
 }
 
 button:hover {
@@ -184,6 +185,65 @@ span {
 
 .hidden {
     display: none;
+}
+
+/** TOAST ALERT */
+#alert-container {
+    z-index: 1;
+
+    .alert-msg {
+        background: #fff;
+        border: 1px solid #ddd;
+        bottom: 25px;
+        box-shadow: 5px 5px 10px rgba(0,0,0,0.1);
+        left: 25px;
+        padding: 15px;
+        position: absolute;
+        z-index: 99;
+        border-radius: 10px;
+
+        &:before {
+            content: "";
+            background: url("../img/alert.png") no-repeat;
+            width: 25px;
+            height: 25px;
+            display: inline-block;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+    }
+}
+
+.slide-in {
+    animation-name: slideIn;
+    animation-duration: 0.8s;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(-400px);
+    }
+
+    to {
+        transform: translateX(0);
+    }
+}
+
+.slide-out {
+    animation-name: slideOut;
+    animation-duration: 25s;
+}
+
+@keyframes slideOut {
+    from {
+        transform: translateY(0);
+        opacity: 1;
+    }
+
+    to {
+        transform: translateY(80px);
+        opacity: 0;
+    }
 }
 
 /* TODO: fix this, to make the form and the whole page responsible */

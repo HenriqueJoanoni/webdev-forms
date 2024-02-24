@@ -29,17 +29,38 @@ function retrieveData(arrayData) {
                                   <li>ID</li>
                                   <li>Name</li>
                                   <li>Nutritional Info</li>
-                                  <li>Tags</li>`;
+                                  <li>Tags</li>
+                                  <li>Options</li>`;
 
         arrayData.forEach((item, i) => {
             /** CHECK IF ITEM MATCHES SEARCH TERM (IF PROVIDED) */
             if (!searchTerm || item.name.toLowerCase().includes(searchTerm.toLowerCase())) {
                 homepage.innerHTML += `<ul>
-                                          <li>${item.id}</li>
-                                          <li>${item.name}</li>
-                                          <li><a class="btn-open" data-index="${i}">View nutritional info</a></li>
-                                          <li>${item.tags ? item.tags : "N/A"}</li>
-                                      </ul>`;
+                                            <li>${item.id}</li>
+                                            <li>${item.name}</li>
+                                            <li><a class="btn-open" data-index="${i}">View nutritional info</a></li>
+                                            <li>${item.tags ? item.tags : "N/A"}</li>
+                                            <li>
+                                                <a>
+                                                    <img
+                                                        src="assets/img/pencil.png"
+                                                        alt="insert tags"
+                                                        title="Insert Tags"
+                                                        data-tags="${i}"
+                                                        class="insert-manager"
+                                                    >
+                                                </a>
+                                                <a>
+                                                    <img
+                                                        src="assets/img/pencil.png"
+                                                        alt="edit tags"
+                                                        title="Edit Tags"
+                                                        data-tags="${i}"
+                                                        class="edit-manager"
+                                                    >
+                                                </a>
+                                            </li>
+                                        </ul>`;
             }
         });
 
@@ -50,6 +71,27 @@ function retrieveData(arrayData) {
             elem.removeEventListener("click", nutritionInformation);
             elem.addEventListener("click", nutritionInformation.bind(null, arrayData));
         });
+
+        /** OPEN THE TAG MANAGER FORM */
+        const openManagerButtons = document.querySelectorAll(".insert-manager");
+        openManagerButtons.forEach(btn => {
+            btn.removeEventListener("click", insertTags);
+            btn.addEventListener("click", function (ev) {
+                const dataIndex = ev.target.getAttribute("data-tags");
+                const info = arrayData[dataIndex];
+                insertTags(arrayData, info);
+            });
+        });
+
+        const editManagerButtons = document.querySelectorAll(".edit-manager");
+        editManagerButtons.forEach(btn => {
+            btn.removeEventListener("click", editTags);
+            btn.addEventListener("click", function (ev) {
+                const dataIndex = ev.target.getAttribute("data-tags");
+                const info = arrayData[dataIndex];
+                editTags(arrayData, info);
+            });
+        });
     }
 
     /** RENDERS TABLE FOR THE FIRST TIME ONCE THE PAGE IS OPENED */
@@ -57,7 +99,8 @@ function retrieveData(arrayData) {
 
     /** EVENT LISTENER TO SEARCH FOR THE TERM */
     submitButton.addEventListener("click", function (e) {
-        e.preventDefault(); /** Prevent form submission */
+        /** PREVENT FORM SUBMISSION */
+        e.preventDefault();
 
         const searchTerm = searchField.value.trim();
         updateTable(searchTerm);
@@ -124,6 +167,119 @@ function nutritionInformation(arrayData, ev) {
     }
 
     openModal();
+}
+
+function insertTags(inputEntry, info) {
+    const homepage = document.querySelector('.home-elements');
+    const tagManager = document.querySelector('.tag-manager');
+
+    /** HIDE MAIN TABLE AND SHOW THE FORM */
+    const openManager = function () {
+        homepage.classList.add('hidden');
+        tagManager.classList.remove('hidden');
+    }
+
+    /** HIDE FORM AND SHOW THE TABLE BACK */
+    const closeManager = function () {
+        homepage.classList.remove('hidden');
+        tagManager.classList.add('hidden');
+    }
+
+    tagManager.innerHTML = `<form id="tag-manager-form">
+                                <label for="tag-input"></label>
+                                <input id="tag-input" name="tag-input-name" placeholder="Insert a new tag name">
+                                <button type="submit">Add Tag</button>
+                                <button type="button" id="cancel-button">Cancel</button>
+                            </form>`;
+
+    document.getElementById('tag-manager-form').addEventListener("submit", function (e) {
+        e.preventDefault();
+        let inputField = document.getElementById('tag-input');
+
+        /** RECEIVE THE DATA FROM THE FIELD AND PUSH IT TO THE NEW TAGS ARRAY */
+        info.tags.push(inputField.value);
+
+        /** CALL THE MAIN FUNCTION AND SET THE NEW DATA TO UPDATE THE TABLE */
+        retrieveData(inputEntry);
+        alertHandler(closeManager);
+    });
+
+    document.getElementById('cancel-button').addEventListener('click', closeManager);
+
+    openManager();
+}
+
+function editTags(inputEntry, info) {
+    const homepage = document.querySelector('.home-elements');
+    const tagManager = document.querySelector('.tag-manager');
+
+    /** HIDE MAIN TABLE AND SHOW THE FORM */
+    const openManager = function () {
+        homepage.classList.add('hidden');
+        tagManager.classList.remove('hidden');
+    }
+
+    /** HIDE FORM AND SHOW THE TABLE BACK */
+    const closeManager = function () {
+        homepage.classList.remove('hidden');
+        tagManager.classList.add('hidden');
+    }
+
+    const handleSubmit = function (e) {
+        e.preventDefault();
+        let inputFields = document.querySelectorAll('.tag-input');
+
+        /** UPDATE THE TAGS */
+        info.tags = Array.from(inputFields).map(field => field.value);
+
+        // CALL THE MAIN FUNCTION AND SET THE NEW DATA TO UPDATE THE TABLE
+        retrieveData(inputEntry);
+        alertHandler(closeManager);
+    };
+
+    /** CREATE NEW FIELDS FOR EACH TAG */
+    const tagInputs = info.tags.map(tag => `<input type="text" class="tag-input" value="${tag}">`);
+    const tagInputsHTML = tagInputs.join('');
+
+    tagManager.innerHTML = `<form id="tag-manager-form">
+                                ${tagInputsHTML}
+                                <button type="submit">Update Tags</button>
+                                <button type="button" id="cancel-button">Cancel</button>
+                            </form>`;
+
+    const tagManagerForm = document.getElementById('tag-manager-form');
+    tagManagerForm.addEventListener("submit", handleSubmit);
+
+    document.getElementById('cancel-button').addEventListener('click', closeManager);
+
+    openManager();
+}
+
+/**
+ * TOAST ALERT
+ */
+function alertHandler(closeManager) {
+    let alerts = document.getElementById("alert-container");
+
+    if (alerts.childElementCount < 2) {
+        /** CREATE ALERT BOX */
+        let alertBox = document.createElement("div");
+        alertBox.classList.add("alert-msg", "slide-in");
+
+        /** ADD MESSAGE TO ALERT BOX */
+        let alertMsg = document.createTextNode("Tag inserted successfully!!");
+        alertBox.appendChild(alertMsg);
+
+        /** ADD ALERT BOX TO PARENT */
+        alerts.insertBefore(alertBox, alerts.childNodes[0]);
+
+        /** REMOVE LAST ALERT BOX */
+        alerts.childNodes[0].classList.add("slide-out");
+        setTimeout(function () {
+            alerts.removeChild(alerts.lastChild);
+            closeManager();
+        }, 2500);
+    }
 }
 
 /**
