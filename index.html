@@ -8,34 +8,50 @@
 </head>
 <body>  
 <section class="general">
-    <div class="search bar">
-           ID <input id="UserSearch" name="search" type="text" placeholder=""  >
-   Name <input id="UserSearch" name="search" type="text" placeholder=""  >
-   Nutritional info<input id="UserSearch" name="search" type="text" placeholder=""  >
-   Tags<input id="UserSearch" name="search" type="text" placeholder=""  >
+   <div class="search-container">
+        <div class="search-bar">
+            <label for="search-field" class="label-search" ></label>
+            
+            <input id="search-field" name="search-field" type="text" placeholder="Type here to Search" >
+            <button type="submit" id="search-button">Search</button>
+        </div>
     </div>
-    <div class="container home-elements">
-        <div class="overlay hidden"></div>
-    </div>
+    <!-- DEFAULT VIEW TABLE -->
+    <div class="container home-elements"></div>
+    <!-- END DEFAULT VIEW TABLE -->
+
+    <!-- FORM FOR TAGS -->
+    <div class="container tag-manager hidden"></div>
+    <div id="alert-container"></div>
+    <!-- END OF FORM FOR TAGS -->
 </section>
 </body>
 
 <!-- MODAL -->
+<div class="overlay hidden"></div>
 <section class="modal hidden">
     <div class="flex">
         <button class="btn-close">⨉</button>
     </div>
     <div>
-        <h3>Testing</h3>
-        <p>
-           testing
-        </p>
+        <div class="modal-content"></div>
     </div>
 </section>
-<!-- END MODAL -->
+    <!-- MODAL -->
+    <div class="overlay hidden"></div>
+    <section class="modal hidden">
+        <div class="flex">
+            <button class="btn-close">⨉</button>
+        </div>
+        <div>
+            <div class="modal-content"></div>
+        </div>
+    </section>
 
-<script src="assets/js/custom.js"></script>
-<footer>
+    <!-- END MODAL -->
 
-</footer>
+    <script src="assets/js/custom.js"></script>
+    <footer>
+
+    </footer>
 </html>
