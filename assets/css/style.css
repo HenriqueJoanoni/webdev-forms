@@ -22,7 +22,6 @@
 }
 
 body {
-    margin: 0;
     padding: 0;
     background-size: cover;
 }
@@ -152,6 +151,7 @@ button:hover {
     
 }
 
+
 span {
     width: 100%;
     color: rgba(255, 0, 0, 0.65);
@@ -242,6 +242,7 @@ background-color: #924DBF;
     text-align: center;
     font-size: 1em;
     background-color: #FFC7BA;
+    cursor: pointer;
 }
 
 .btn-close {

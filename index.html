@@ -1,42 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Webdev - Forms CA2</title>
-    <link rel="shortcut icon" href="assets/img/icon.png" type="image/x-icon">
-    <link rel="stylesheet" href="assets/css/style.css">
-</head>
-<body>
-<section class="general">
-    <div class="search-container">
-        <div class="search-bar">
-            <label for="search-field" class="label-search" ></label>
+    <head>
+        <meta charset="UTF-8">
+        <title>Webdev - Forms CA2</title>
+        <link rel="shortcut icon" href="assets/img/icon.png" type="image/x-icon">
+        <link rel="stylesheet" href="assets/css/style.css">
+    </head>
+    <body>
+        <section class="general">
+            <div class="search-container">
+                <div class="search-bar">
+                    <label for="search-field" class="label-search" ></label>
+
+                    <input id="search-field" name="search-field" type="text" placeholder="Type here to Search" >
+                    <button type="submit" id="search-button">Search</button>
+                </div>
+            </div>
+             <div class="insert-container">
+                <div class="insert-button">
+                    <a id="insert-item" class="btn" onclick="insertElements()">Insert New Elements</a>
+                </div>
+            </div>
+            <!-- DEFAULT VIEW TABLE -->
+            <div class="container home-elements"></div>
+            <!-- END DEFAULT VIEW TABLE -->
+
+            <!-- FORM FOR TAGS -->
+            <div class="container tag-manager hidden"></div>
+            <div id="alert-container"></div>
+            <!-- END OF FORM FOR TAGS -->
             
-            <input id="search-field" name="search-field" type="text" placeholder="Type here to Search" >
-            <button type="submit" id="search-button">Search</button>
+            <!-- FORM TO INSERT ELEMENTS -->
+            <div class="container insert-elements-form hidden"></div>
+            <div id="alert-container"></div>
+            <!-- END FORM TO INSERT ELEMENTS-->
+        </section>
+    </body>
+
+    <!-- MODAL -->
+    <div class="overlay hidden"></div>
+    <section class="modal hidden">
+        <div class="flex">
+            <button class="btn-close">⨉</button>
         </div>
-    </div>
-    <!-- DEFAULT VIEW TABLE -->
-    <div class="container home-elements"></div>
-    <!-- END DEFAULT VIEW TABLE -->
-
-    <!-- FORM FOR TAGS -->
-    <div class="container tag-manager hidden"></div>
-    <div id="alert-container"></div>
-    <!-- END OF FORM FOR TAGS -->
-</section>
-</body>
-
-<!-- MODAL -->
-<div class="overlay hidden"></div>
-<section class="modal hidden">
-    <div class="flex">
-        <button class="btn-close">⨉</button>
-    </div>
-    <div>
-        <div class="modal-content"></div>
-    </div>
-</section>
+        <div>
+            <div class="modal-content"></div>
+        </div>
+    </section>
     <!-- MODAL -->
     <div class="overlay hidden"></div>
     <section class="modal hidden">
@@ -50,8 +60,58 @@
 
     <!-- END MODAL -->
 
-    <script src="assets/js/custom.js"></script>
-    <footer>
+<!--    <section>
+        <div id="baseTable">
+            <div class="container home-elements">
+            </div>
+        </div>
+        <div id="addDeleteModify">
+            <div>
+                <div class="interactWithTable">
+                    <section class="statement">          
+                        <h4>Fill in the fields make desired changes to table</h4>
+                    </section>
+                    <section class="userAddToTable">
+                        <fieldset>
+                            <legend>Add to table</legend>
+                            <input type="text" id="cellOne" placeholder=" Add ID" />
+                            <input type="text" id="cellTwo" placeholder="Add Name" />
+                            <input type="text" id="cellThree" placeholder="Add a Tag " />
 
-    </footer>
+                            <input type="button" value="Add changes to table" onclick="userAdd(
+                                            document.getElementById('cellOne').value,
+                                            document.getElementById('cellTwo').value,
+                                            document.getElementById('cellThree').value)
+                                            //    document.getElementById('cellFour').value)
+
+                                   ">
+                        </fieldset>
+                    </section>
+                    <section class="userModifyTable">
+                        <fieldset>
+                            <legend>Modify</legend>
+                            <input type="text" id="modifyId" placeHolder="ID for the row you wish to change">
+                            <input type="text" id="modifyname" placeHolder="Modify Name">
+                            <input type="text" id="modifynutrition" placeHolder="Modify Nutrition">
+                            <input type="text" id="modifytag" placeHolder="Modify Tag">
+
+                            <input type="button" value='Submit' onclick="modifyTable(document.getElementById('modifyId').value,
+                                            document.getElementById('modifyname').value,
+                                            document.getElementById('modifynutrition').value,
+                                            document.getElementById('modifytag').value)">    
+                        </fieldset>
+                    </section>
+                    <section class="userDeleteFromTable">    
+                        <input type="text" id="deleteId" placeholder="Delete ID">
+                        <input type="button" value="Delete from table" onclick="deleteRow((document.getElementById('deleteId').value))">
+                    </section>
+                </div>
+            </div>
+        </div>
+    </section>-->
+</body>
+<script src="assets/js/custom.js"></script>
+<footer>
+
+</footer>
 </html>

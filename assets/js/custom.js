@@ -2,16 +2,16 @@
  * READ DATA FROM FILE
  */
 fetch("food.json")
-    .then((res) => {
-        if (!res.ok) {
-            throw new Error
-            (`HTTP error! Status: ${res.status}`);
-        }
-        return res.json();
-    })
-    .then((data) => retrieveData(data))
-    .catch((error) =>
-        console.error("Unable to fetch data:", error));
+        .then((res) => {
+            if (!res.ok) {
+                throw new Error
+                        (`HTTP error! Status: ${res.status}`);
+            }
+            return res.json();
+        })
+        .then((data) => retrieveData(data))
+        .catch((error) =>
+            console.error("Unable to fetch data:", error));
 
 function retrieveData(arrayData) {
     const homepage = document.querySelector(".home-elements");
@@ -30,7 +30,8 @@ function retrieveData(arrayData) {
                                   <li>Name</li>
                                   <li>Nutritional Info</li>
                                   <li>Tags</li>
-                                  <li>Options</li>`;
+                                  <li>Options</li>
+                                  <li>Delete</li>  `;
 
         arrayData.forEach((item, i) => {
             /** CHECK IF ITEM MATCHES SEARCH TERM (IF PROVIDED) */
@@ -60,6 +61,12 @@ function retrieveData(arrayData) {
                                                         title="Edit Tags"
                                                         data-tags="${i}"
                                                         class="edit-manager"
+                                                    >
+                                                </a>
+                                                <a>
+                                                    <img
+                                                        src="assets/img/bin.png" width='32' height='32'
+                                                        onclick="deleteRow((document.getElementById('deleteId').value))"
                                                     >
                                                 </a>
                                             </li>
@@ -93,6 +100,17 @@ function retrieveData(arrayData) {
                 const dataIndex = ev.target.getAttribute("data-tags");
                 const info = arrayData[dataIndex];
                 editTags(arrayData, info);
+            });
+        });
+        
+        /** OPEN THE INSERT ELEMENTS MENU */
+        const insertElementsButton = document.querySelector('#insert-item');
+        insertElementsButton.forEach(btn => {
+            btn.removeEventListener("click", insertElements);
+            btn.addEventListener("click", function() {
+//                const dataIndex = ev.target.getAttribute("data-insert");
+//                const info = arrayData[dataIndex];
+                insertElements();
             });
         });
     }
@@ -180,13 +198,13 @@ function insertTags(inputEntry, info) {
     const openManager = function () {
         homepage.classList.add('hidden');
         tagManager.classList.remove('hidden');
-    }
+    };
 
     /** HIDE FORM AND SHOW THE TABLE BACK */
     const closeManager = function () {
         homepage.classList.remove('hidden');
         tagManager.classList.add('hidden');
-    }
+    };
 
     tagManager.innerHTML = `<form id="tag-manager-form">
                                 <label for="tag-input"></label>
@@ -220,13 +238,13 @@ function editTags(inputEntry, info) {
     const openManager = function () {
         homepage.classList.add('hidden');
         tagManager.classList.remove('hidden');
-    }
+    };
 
     /** HIDE FORM AND SHOW THE TABLE BACK */
     const closeManager = function () {
         homepage.classList.remove('hidden');
         tagManager.classList.add('hidden');
-    }
+    };
 
     const handleSubmit = function (e) {
         e.preventDefault();
@@ -312,3 +330,146 @@ function login() {
         }
     });
 }
+/**user add to table**/
+
+function insertElements(entryArray, info) {
+    const homepage = document.querySelector('.home-elements');
+    const insertManager = document.querySelector('.insert-elements-form');
+    
+    console.log(info);
+    
+    /** HIDE MAIN TABLE AND SHOW THE FORM */
+    const openManager = function () {
+        homepage.classList.add('hidden');
+        insertManager.classList.remove('hidden');
+    };
+
+    /** HIDE FORM AND SHOW THE TABLE BACK */
+    const closeManager = function () {
+        homepage.classList.remove('hidden');
+        insertManager.classList.add('hidden');
+    };
+    
+    insertManager.innerHTML = `<form id="insert-manager-form">
+                                <input type="text" class="element-insert" id="id-input" placeholder=" Add ID"/>
+                                <input type="text" class="element-insert" id="name-input" placeholder="Add Name"/>
+                                <input type="text" class="element-insert" id="tag-input" placeholder="Add a Tag"/>
+                                <button type="submit">Add Element</button>
+                                <button type="button" id="cancel-button">Cancel</button>
+                            </form>`;
+    
+    document.getElementById('insert-manager-form').addEventListener("submit", function (e) {
+        e.preventDefault();
+        let inputId = document.getElementById('id-input');
+        let inputName = document.getElementById('name-input');
+        let inputTags = document.getElementById('tag-input');
+
+        /** RECEIVE THE DATA FROM THE FIELD AND PUSH IT TO THE NEW TAGS ARRAY */
+        info.tags.push(inputId.value, inputName.value, inputTags.value);
+
+        /** CALL THE MAIN FUNCTION AND SET THE NEW DATA TO UPDATE THE TABLE */
+        retrieveData(entryArray);
+        alertHandler(closeManager, 'insert');
+    });
+
+    document.getElementById('cancel-button').addEventListener('click', closeManager);
+    
+    openManager();
+}
+
+//testing how to interact with the tags array
+
+let index = 0;
+htmlString = `${jsonVariable[index].tags[index]}`;
+let keys = Object.keys(jsonVariable[index].tags);
+console.log(keys);
+
+function testing()
+{
+
+    document.getElementById("container home-elements").innerHTML = htmlString;
+}
+
+function userAdd(id, name, tags) {
+
+    let add = {id: id, name: name, tags: tags};
+
+    jsonVariable.push(add);
+
+    retrieveData(jsonVariable);
+    document.getElementById("cellOne").value = "";
+    document.getElementById("cellTwo").value = "";
+    document.getElementById("cellThree").value = "";
+}
+//console.log(userAdd);
+/**user modify table**/
+
+function modifyTable(id, name, nutrition, tag)
+{
+
+    jsonVariable.forEach(jsonVariable =>
+    {
+
+        if (jsonVariable.id === id)
+        {
+            jsonVariable.id = id;
+            jsonVariable.name = name;
+            jsonVariable.nutrition = nutrition;
+            jsonVariable.tag = tag;
+
+        }
+    });
+
+    retrieveData(jsonVariable);
+    document.getElementById("modifyId").value = "";
+    document.getElementById("modifyname").value = "";
+    document.getElementById("modifynutrition").value = "";
+    document.getElementById("modifytag").value = "";
+}
+
+/**user delete from table**/
+function deleteRow(id)
+{
+    let selectedIndex = 0;
+    jsonVariable.forEach((jsonVariable, index) =>
+    {
+        if (jsonVariable.id === id )
+        {
+            selectedIndex = index;
+        }
+    });
+
+    jsonVariable.splice(selectedIndex, 1);
+
+    retrieveData(jsonVariable);
+    document.getElementById("deleteId").value = "";
+}
+
+
+//hidding json table 
+function hideInfotable() {
+    let content = document.getElementById("baseTable");
+    let content2 = document.getElementById("addDeleteModify");
+    let hide = document.getElementById("hidetable");
+    let show = document.getElementById("showtable");
+
+    if (content.style.display === "block" && content2.style.display === "none")
+    {
+        content.style.display = "none";
+        content2.style.display = "block";
+        show.style.display = "block";
+        hide.style.display = "none";
+
+
+    } else
+    {
+        content.style.display = "block";
+        content2.style.display = "none";
+        hide.style.display = "block";
+        show.style.display = "none";
+
+    }
+}
+
+
+
