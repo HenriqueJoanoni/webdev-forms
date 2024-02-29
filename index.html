@@ -10,10 +10,15 @@
 <section class="general">
     <div class="search-container">
         <div class="search-bar">
-            <label for="search-field" class="label-search" ></label>
-            
-            <input id="search-field" name="search-field" type="text" placeholder="Type here to Search" >
+            <label for="search-field" class="label-search"></label>
+
+            <input id="search-field" name="search-field" type="text" placeholder="Type here to Search">
             <button type="submit" id="search-button">Search</button>
+        </div>
+    </div>
+    <div class="insert-container">
+        <div class="insert-button">
+            <a id="insert-item" class="btn">Insert New Elements</a>
         </div>
     </div>
     <!-- DEFAULT VIEW TABLE -->
@@ -24,6 +29,11 @@
     <div class="container tag-manager hidden"></div>
     <div id="alert-container"></div>
     <!-- END OF FORM FOR TAGS -->
+
+    <!-- FORM TO INSERT ELEMENTS -->
+    <div class="container insert-elements-form hidden"></div>
+    <div id="alert-container"></div>
+    <!-- END FORM TO INSERT ELEMENTS-->
 </section>
 </body>
 
@@ -37,21 +47,22 @@
         <div class="modal-content"></div>
     </div>
 </section>
-    <!-- MODAL -->
-    <div class="overlay hidden"></div>
-    <section class="modal hidden">
-        <div class="flex">
-            <button class="btn-close">⨉</button>
-        </div>
-        <div>
-            <div class="modal-content"></div>
-        </div>
-    </section>
+<!-- MODAL -->
+<div class="overlay hidden"></div>
+<section class="modal hidden">
+    <div class="flex">
+        <button class="btn-close">⨉</button>
+    </div>
+    <div>
+        <div class="modal-content"></div>
+    </div>
+</section>
 
-    <!-- END MODAL -->
+<!-- END MODAL -->
 
-    <script src="assets/js/custom.js"></script>
-    <footer>
+</body>
+<script src="assets/js/custom.js"></script>
+<footer>
 
-    </footer>
+</footer>
 </html>

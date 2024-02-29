@@ -17,6 +17,7 @@ function retrieveData(arrayData) {
     const homepage = document.querySelector(".home-elements");
     const submitButton = document.querySelector("#search-button");
     const searchField = document.querySelector("#search-field");
+    const insertElementsButton = document.querySelector("#insert-item");
 
     /**
      * THIS FUNCTION IS RESPONSIBLE TO REGENERATE THE TABLE
@@ -30,7 +31,8 @@ function retrieveData(arrayData) {
                                   <li>Name</li>
                                   <li>Nutritional Info</li>
                                   <li>Tags</li>
-                                  <li>Options</li>`;
+                                  <li>Options</li>
+                                  <li>Delete</li>  `;
 
         arrayData.forEach((item, i) => {
             /** CHECK IF ITEM MATCHES SEARCH TERM (IF PROVIDED) */
@@ -42,7 +44,7 @@ function retrieveData(arrayData) {
                                             <li>${item.id}</li>
                                             <li>${item.name}</li>
                                             <li><a class="btn-open" data-index="${i}">View nutritional info</a></li>
-                                            <li>${item.tags ? item.tags : "N/A"}</li>
+                                            <li>${item.tags ? item.tags : item.contains ? item.contains : "N/A"}</li>
                                             <li>
                                                 <a>
                                                     <img
@@ -61,6 +63,9 @@ function retrieveData(arrayData) {
                                                         data-tags="${i}"
                                                         class="edit-manager"
                                                     >
+                                                </a>
+                                                <a class="delete-button">
+                                                    <img src="assets/img/bin.png" width='35' height='35' alt="delete button">
                                                 </a>
                                             </li>
                                         </ul>`;
@@ -108,6 +113,23 @@ function retrieveData(arrayData) {
         const searchTerm = searchField.value.trim();
         updateTable(searchTerm);
     });
+
+    /** EVENT LISTENER FOR INSERT ELEMENTS BUTTON */
+    insertElementsButton.addEventListener("click", function () {
+        insertData(arrayData);
+    });
+
+    /** EVENT LISTENER TO DELETE AN ELEMENT */
+    const deleteButtons = document.querySelectorAll('.delete-button');
+    deleteButtons.forEach((button, elementId) => {
+        button.addEventListener('click', () => deleteItems(elementId));
+    });
+
+    /** FUNCTION TO DELETE ITEMS FROM THE ARRAY */
+    function deleteItems(elemId) {
+        arrayData.splice(elemId, 1);
+        retrieveData(arrayData);
+    }
 }
 
 function nutritionInformation(arrayData, ev) {
@@ -172,6 +194,74 @@ function nutritionInformation(arrayData, ev) {
     openModal();
 }
 
+function insertData(entryArray) {
+    const homepage = document.querySelector('.home-elements');
+    const insertManager = document.querySelector('.insert-elements-form');
+
+    /** HIDE MAIN TABLE AND SHOW THE FORM */
+    const openManager = function () {
+        homepage.classList.add('hidden');
+        insertManager.classList.remove('hidden');
+    };
+
+    /** HIDE FORM AND SHOW THE TABLE BACK */
+    const closeManager = function () {
+        homepage.classList.remove('hidden');
+        insertManager.classList.add('hidden');
+    };
+
+    insertManager.innerHTML = `<form id="insert-manager-form">
+                                <input type="text" class="element-insert" id="id-input" placeholder=" Add ID"/>
+                                <input type="text" class="element-insert" id="name-input" placeholder="Add Name"/>
+                                <input type="text" class="element-insert" id="tag-input" placeholder="Add a Tag"/>
+                                <select class="element-insert" id="nutrition-dropdown">
+                                    <option value="0">Select The Volume</option>
+                                    <option value="nutrition-per-100g">Per g</option>
+                                    <option value="nutrition-per-100ml">Per ml</option>
+                                </select>
+                                <div id="nutrition-form"></div>
+                                <button type="submit">Add Element</button>
+                                <button type="button" id="cancel-button">Cancel</button>
+                            </form>`;
+
+    const nutritionInfo = document.querySelector('#nutrition-dropdown');
+
+    // TODO: finnish this logic, to add nutrition information to the main array
+    nutritionInfo.addEventListener('change', function (ev) {
+        // console.log(ev.target.value);
+        if (ev.target.value === 'nutrition-per-100g') {
+            document.getElementById('nutrition-form').innerHTML = formPerGrams();
+        } else if (ev.target.value === 'nutrition-per-100ml') {
+            document.getElementById('nutrition-form').innerHTML = formPerMl();
+        }
+    })
+
+    document.getElementById('insert-manager-form').addEventListener("submit", function (e) {
+        e.preventDefault();
+        let inputId = document.getElementById('id-input').value;
+        let inputName = document.getElementById('name-input').value;
+        let inputTags = document.getElementById('tag-input').value;
+
+        /** CREATE NEW ELEMENT OBJECT */
+        const newElement = {
+            id: inputId,
+            name: inputName,
+            tags: [inputTags]
+        };
+
+        /** PUSH THE NEW ELEMENT TO THE ARRAY */
+        entryArray.push(newElement);
+
+        /** CALL THE MAIN FUNCTION AND SET THE NEW DATA TO UPDATE THE TABLE */
+        retrieveData(entryArray);
+        alertHandler(closeManager, 'insert');
+    });
+
+    document.getElementById('cancel-button').addEventListener('click', closeManager);
+
+    openManager();
+}
+
 function insertTags(inputEntry, info) {
     const homepage = document.querySelector('.home-elements');
     const tagManager = document.querySelector('.tag-manager');
@@ -180,13 +270,13 @@ function insertTags(inputEntry, info) {
     const openManager = function () {
         homepage.classList.add('hidden');
         tagManager.classList.remove('hidden');
-    }
+    };
 
     /** HIDE FORM AND SHOW THE TABLE BACK */
     const closeManager = function () {
         homepage.classList.remove('hidden');
         tagManager.classList.add('hidden');
-    }
+    };
 
     tagManager.innerHTML = `<form id="tag-manager-form">
                                 <label for="tag-input"></label>
@@ -200,7 +290,13 @@ function insertTags(inputEntry, info) {
         let inputField = document.getElementById('tag-input');
 
         /** RECEIVE THE DATA FROM THE FIELD AND PUSH IT TO THE NEW TAGS ARRAY */
-        info.tags.push(inputField.value);
+        if (info.tags) {
+            info.tags.push(inputField.value);
+        } else if (info.contains) {
+            info.contains.push(inputField.value);
+        } else {
+            info.tags = [inputField.value]; // Create a new 'tags' array with the input value
+        }
 
         /** CALL THE MAIN FUNCTION AND SET THE NEW DATA TO UPDATE THE TABLE */
         retrieveData(inputEntry);
@@ -220,13 +316,13 @@ function editTags(inputEntry, info) {
     const openManager = function () {
         homepage.classList.add('hidden');
         tagManager.classList.remove('hidden');
-    }
+    };
 
     /** HIDE FORM AND SHOW THE TABLE BACK */
     const closeManager = function () {
         homepage.classList.remove('hidden');
         tagManager.classList.add('hidden');
-    }
+    };
 
     const handleSubmit = function (e) {
         e.preventDefault();
@@ -274,8 +370,8 @@ function alertHandler(closeManager, type) {
         /** ADD MESSAGE TO ALERT BOX */
         let alertMsg =
             (type === 'insert') ?
-            document.createTextNode(insertMessage) :
-            document.createTextNode(editMessage);
+                document.createTextNode(insertMessage) :
+                document.createTextNode(editMessage);
 
         alertBox.appendChild(alertMsg);
 
@@ -311,4 +407,142 @@ function login() {
             window.location.replace("http://localhost/webdev-forms/index.html");
         }
     });
+}
+
+/** HELPER FUNCTION */
+function formPerGrams() {
+    return gForm = `
+        <label for="energy-field">Energy: </label>
+        <input type="text" id="energy-field">
+        
+        <label for="protein-field">Protein: </label>
+        <input type="text" id="protein-field">
+        
+        <label for="fat-field">Fat: </label>
+        <input type="text" id="fat-field">
+        
+        <label for="saturated-fat-field">Saturated-fat: </label>
+        <input type="text" id="saturated-fat-field">
+        
+        <label for="carbohydrate-field">Carbohydrate: </label>
+        <input type="text" id="carbohydrate-field">
+        
+        <label for="sugars-field">Sugars: </label>
+        <input type="text" id="sugars-field">
+        
+        <label for="dietary-fibre-field">Dietary-fibre: </label>
+        <input type="text" id="dietary-fibre-field">
+        
+        <label for="sodium-field">Sodium: </label>
+        <input type="text" id="sodium-field">
+        
+        <label for="potassium-field">Potassium: </label>
+        <input type="text" id="potassium-field">
+        
+        <label for="trans-fat-field">Trans-fat: </label>
+        <input type="text" id="trans-fat-field">
+        
+        <label for="polyunsaturated-fat-field">Polyunsaturated-fat: </label>
+        <input type="text" id="polyunsaturated-fat-field">
+        
+        <label for="monounsaturated-fat-field">Monounsaturated-fat: </label>
+        <input type="text" id="monounsaturated-fat-field">
+        
+        <label for="vitamin-b3-field">Vitamin-b3: </label>
+        <input type="text" id="vitamin-b3-field">
+        
+        <label for="magnesium-field">Magnesium: </label>
+        <input type="text" id="magnesium-field">
+        
+        <label for="protein-field">Protein: </label>
+        <input type="text" id="protein-field">
+        
+        <label for="vitamin-b1-field">Vitamin-b1: </label>
+        <input type="text" id="vitamin-b1-field">
+        
+        <label for="vitamin-b2-field">Vitamin-b2: </label>
+        <input type="text" id="vitamin-b2-field">
+        
+        <label for="vitamin-b3-field">Vitamin-b3: </label>
+        <input type="text" id="vitamin-b3-field">
+        
+        <label for="vitamin-b5-field">Vitamin-b5: </label>
+        <input type="text" id="vitamin-b5-field">
+        
+        <label for="vitamin-b6-field">Vitamin-b6: </label>
+        <input type="text" id="vitamin-b6-field">
+        
+        <label for="vitamin-b9-field">Vitamin-b9: </label>
+        <input type="text" id="vitamin-b9-field">
+        
+        <label for="vitamin-c-field">Vitamin-c: </label>
+        <input type="text" id="vitamin-c-field">
+        
+        <label for="calcium-field">Calcium: </label>
+        <input type="text" id="calcium-field">
+        
+        <label for="iron-field">Iron: </label>
+        <input type="text" id="iron-field">
+        
+        <label for="phosphorus-field">Phosphorus: </label>
+        <input type="text" id="phosphorus-field">
+        
+        <label for="zinc-field">Zinc: </label>
+        <input type="text" id="zinc-field">
+        
+        <label for="manganese-field">Manganese: </label>
+        <input type="text" id="manganese-field">
+        
+        <label for="vitamin-e-field">Vitamin-e: </label>
+        <input type="text" id="vitamin-e-field">
+        
+        <label for="vitamin-k-field">Vitamin-k: </label>
+        <input type="text" id="vitamin-k-field">
+    `;
+}
+
+function formPerMl() {
+    return mlForm = `
+        <label for="energy-field">Energy: </label>
+        <input type="text" id="energy-field">
+        
+        <label for="protein-field">Protein: </label>
+        <input type="text" id="protein-field">
+        
+        <label for="fat-field">Fat: </label>
+        <input type="text" id="fat-field">
+        
+        <label for="saturated-fat-field">Saturated-fat: </label>
+        <input type="text" id="saturated-fat-field">
+        
+        <label for="trans-fat-field">Trans-fat: </label>
+        <input type="text" id="trans-fat-field">
+        
+        <label for="polyunsaturated-fat-field">Polyunsaturated-fat: </label>
+        <input type="text" id="polyunsaturated-fat-field">
+        
+        <label for="monounsaturated-fat-field">Monounsaturated-fat: </label>
+        <input type="text" id="monounsaturated-fat-field">
+        
+        <label for="carbohydrate-field">Carbohydrate: </label>
+        <input type="text" id="carbohydrate-field">
+        
+        <label for="sugars-field">Sugars: </label>
+        <input type="text" id="sugars-field">
+        
+        <label for="dietary-fibre-field">Dietary-fibre: </label>
+        <input type="text" id="dietary-fibre-field">
+        
+        <label for="sodium-field">Sodium: </label>
+        <input type="text" id="sodium-field">
+        
+        <label for="potassium-field">Potassium: </label>
+        <input type="text" id="potassium-field">
+        
+        <label for="calcium-field">Calcium: </label>
+        <input type="text" id="calcium-field">
+        
+        <label for="vitamin-e-field">Vitamin-e: </label>
+        <input type="text" id="vitamin-e-field">
+    `;
 }
