@@ -46,7 +46,7 @@ function retrieveData(arrayData) {
                                             <li>
                                                 <a>
                                                     <img
-                                                        src="assets/img/pencil.png"
+                                                        src="assets/img/add_vivi2.png"
                                                         alt="insert tags"
                                                         title="Insert Tags"
                                                         data-tags="${i}"
@@ -55,7 +55,7 @@ function retrieveData(arrayData) {
                                                 </a>
                                                 <a>
                                                     <img
-                                                        src="assets/img/pencil.png"
+                                                        src="assets/img/edit_vivi.png"
                                                         alt="edit tags"
                                                         title="Edit Tags"
                                                         data-tags="${i}"
@@ -191,7 +191,7 @@ function insertTags(inputEntry, info) {
     tagManager.innerHTML = `<form id="tag-manager-form">
                                 <label for="tag-input"></label>
                                 <input id="tag-input" name="tag-input-name" placeholder="Insert a new tag name">
-                                <button type="submit">Add Tag</button>
+                                <button type="submit" id=" add_tag">Add Tag</button>
                                 <button type="button" id="cancel-button">Cancel</button>
                             </form>`;
 
@@ -246,7 +246,7 @@ function editTags(inputEntry, info) {
 
     tagManager.innerHTML = `<form id="tag-manager-form">
                                 ${tagInputsHTML}
-                                <button type="submit">Update Tags</button>
+                                <button type="submit" >Update Tags</button>
                                 <button type="button" id="cancel-button">Cancel</button>
                             </form>`;
 

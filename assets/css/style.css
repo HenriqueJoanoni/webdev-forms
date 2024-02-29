@@ -4,7 +4,6 @@
     padding: 0;
     font-family: helvetica, arial, sans-serif;
 }
-
 .body-login {
     display: flex;
     justify-content: center;
@@ -15,59 +14,34 @@
     background-size: cover;
     position: relative;
     background-repeat: no-repeat;
-    background-position: center center;
     background-attachment: fixed;
     background-image: url("../img/background.png");
-
 }
-
 body {
     margin: 0;
     padding: 0;
     background-size: cover;
 }
-
 .general {
-      background-image: url("../img/background.png"); 
-    display: flex;
+    background-image: url("../img/background.png");
     flex-direction:column;
     background-color:#FFF5;
-    backdrop-filter:blur(7xp);
+    backdrop-filter:blur(7px);
     box-shadow:0 .4rem .8rem #0005;
     border:60px solid #FFF5;
-/*    border-radius:25px;*/
- background-repeat: no- repeat;
+    background-repeat: no-repeat;
     background-attachment: fixed;
     display: flex;
     justify-content: center;
     align-items: center;
 }
-
-.search-bar{
-    margin-right:200px;
-}
-/*
-section general {
-     this is my background 
-    display: flex;
-    flex-direction:column;
-        background:linear-gradient(#0C7075, #6DA5C0);
-    background-image: url("../img/background.png"); 
-    background-position: center;
-    background-size:cover;
-    position: relative;
-    background-repeat: no- repeat;
-    background-attachment: fixed;
-    border:60px solid #FFF5;
-    border-radius:25px; this to make have a border not the colours though 
-}*/
 #email{
     border:black thin solid;
     border-top-right-radius:25px;
     border-bottom-left-radius:25px;
     width: 325px;
     height: 35px;
-   flex-wrap: wrap;
+    flex-wrap: wrap;
 }
 #password{
     border:black thin solid;
@@ -75,55 +49,49 @@ section general {
     border-bottom-left-radius:25px;
     width: 325px;
     height: 35px;
-  margin-left: 40px;
-  felx-wrap: wrap;
+    margin-left: 40px;
+    flex-wrap: wrap;
 }
-.container{
-    backdrop-filter: blur;
+ button add_tag{
+    margin-top: 50px;
 }
 button {
     width: auto;
     height: 40px;
     border: none;
-    background-color: #31304D;
+    background-color: rgba(49, 48, 77, 0.4);
     color: white;
     border-radius: 10px;
     transition-duration: 0.4s;
     padding: 10px;
 }
-/*
 button:hover {
-    background-color: #779AE4;
-    color: #48484BFF;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+    background-color:#BC61F5;
+    color:#D7A1F9;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     cursor: pointer;
-}*/
+    border:transparent;
+    padding: 5px;
+}
+.container{
+    backdrop-filter: blur;
+}
+
 .search-container {
-    /*    this is to do with the  search bar */
-    /*    max-width: 990px;*/
     float: left;
-    margin: 0 auto;
     display: flex;
     flex-direction: column;
-    align-items: center;
     margin-left: 35px;
-
+}
+.search-bar{
+    margin-right: 990px;
+    float: left;
 }
 input {
-    /* to do with the scale of the search bar */
     width: 100%;
     padding: 8px;
     margin-bottom: 15px;
     border-radius: 10px;
-
-}
-
-button:hover {
-    background-color:#BC61F5;
-    color:#D7A1F9;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
-    cursor: pointer;
-    border:transparent;
 }
 #search-button{
     border:transparent;
@@ -132,78 +100,79 @@ button:hover {
     width: 90px;
     height: 40px;
     transition-duration: 0.4s;
-    colour:#294D61;
-/*  colour:#294D61;
-  padding: 10px 50px;
-  border: none;
-  ouline: none;
-  letter-spacing: 1px;
-  cursor: pointer;*/
 }
-
 #search-field{
-    /* to do with the hsap eof the search bar */
     border:transparent;
     border-radius:25px;
     margin-top: 30px;
-/*    flex: 1;
-    border:none;
-    outline: none;*/
-    
 }
-
 span {
     width: 100%;
     color: rgba(255, 0, 0, 0.65);
 }
-
+#tag-manager-form{
+    display: flex;
+    align-items: flex-start;
+    width:100%;
+    background-position: center;
+    background-size: cover;
+    position: relative;
+    background-repeat: no-repeat;
+    border-radius:25px;
+margin-right: 800px;
+}
+#tag-input{
+    border-radius:25px;
+    width: 190px;
+    height: 25px;
+    border:transparent;
+    margin-bottom: 250px;
+       background-size: fixed;
+       margin-top: 50px;
+       margin-left: 20px;
+}
+.tag-input{
+    border-radius:25px;
+    margin-right: 50px;
+    display: flex;
+}
 /** CODE TO SHOW TABLE */
 .home-elements{
-    /* to do with the first collume */
     border-collapse: collapse;
     border-radius: 25px;
     margin-top: 3%;
-
 }
-
 .home-elements ul {
-    /* to be shown as a table in the first place */
     list-style-type: none;
     padding: 0;
     display: table;
     background-color:#FFF5;
-    backdrop-filter:blur(7xp);
+    backdrop-filter:blur(7px);
     box-shadow:0 .4rem .8rem #0005;
     width: 100%;
     table-layout: fixed;
 }
-
 .home-elements li {
     display: table-cell;
     padding: 8px;
-    /*    border: 1px solid #ddd;*/
     width: 25%;
     box-sizing: border-box;
-
 }
 
 .home-elements li:first-child {
     font-weight: bold;
     top:50px;
     left:50px;
-    border-radius: 25px;
+    border-top-right-radius:25px;
+    border-bottom-right-radius:25px;
     background-color: #0000000b;
-/*background-color: #7852A9;*/
-/*background-color: #AF6FAB;*/
-background-color: #924DBF;
+    background-color: rgba(146, 77 , 191, 0.2);
 }
 
 .home-elements ul ul {
     border-top: 1px solid #ddd;
 }
-/*.home-elements ul li a  {
-background-color: #924DBF;
-}*/
+
 .home-elements a {
     text-decoration: none;
     color: #3A3985;
@@ -224,19 +193,20 @@ background-color: #924DBF;
     background-color: #DFC5FE;
     border: 1px solid #ddd;
     border-radius: 15px;
-}
 
+}
 .modal .flex {
     display: flex;
     align-items: flex-start;
     justify-content: right;
+
+    box-shadow:0 .4rem .8rem #0005;
 }
 
 .btn {
     display: inline-block;
     padding: 0.8rem 1.4rem;
     font-weight: 700;
-    background-color: black;
     color: white;
     border-radius: 5px;
     text-align: center;
@@ -244,10 +214,10 @@ background-color: #924DBF;
     background-color: #FFC7BA;
 }
 
+
 .btn-close {
     transform: translate(10px, -10px);
     padding: 0.5rem 0.7rem;
-    background: #fff;
     cursor: pointer;
     background-color: #924DBF;
 }
