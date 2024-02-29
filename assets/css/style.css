@@ -9,13 +9,13 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width:100%;
+    width: 100%;
     height: 120vh;
     background-position: center;
     background-size: cover;
     position: relative;
     background-repeat: no-repeat;
-    background-position: center center;
+    /*background-position: center center;*/
     background-attachment: fixed;
     background-image: url("../img/background.png");
 
@@ -27,24 +27,25 @@ body {
 }
 
 .general {
-      background-image: url("../img/background.png"); 
+    background-image: url("../img/background.png");
     display: flex;
-    flex-direction:column;
-    background-color:#FFF5;
-    backdrop-filter:blur(7xp);
-    box-shadow:0 .4rem .8rem #0005;
-    border:60px solid #FFF5;
-/*    border-radius:25px;*/
- background-repeat: no- repeat;
+    flex-direction: column;
+    background-color: #FFF5;
+    backdrop-filter: blur(7px);
+    box-shadow: 0 .4rem .8rem #0005;
+    border: 60px solid #FFF5;
+    /*    border-radius:25px;*/
+    background-repeat: no-repeat;
     background-attachment: fixed;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.search-bar{
-    margin-right:200px;
+.search-bar {
+    margin-right: 200px;
 }
+
 /*
 section general {
      this is my background 
@@ -60,26 +61,29 @@ section general {
     border:60px solid #FFF5;
     border-radius:25px; this to make have a border not the colours though 
 }*/
-#email{
-    border:black thin solid;
-    border-top-right-radius:25px;
-    border-bottom-left-radius:25px;
+#email {
+    border: black thin solid;
+    border-top-right-radius: 25px;
+    border-bottom-left-radius: 25px;
     width: 325px;
     height: 35px;
-   flex-wrap: wrap;
+    flex-wrap: wrap;
 }
-#password{
-    border:black thin solid;
-    border-top-right-radius:25px;
-    border-bottom-left-radius:25px;
+
+#password {
+    border: black thin solid;
+    border-top-right-radius: 25px;
+    border-bottom-left-radius: 25px;
     width: 325px;
     height: 35px;
-  margin-left: 40px;
-  felx-wrap: wrap;
+    margin-left: 40px;
+    felx-wrap: wrap;
 }
-.container{
+
+.container {
     backdrop-filter: blur;
 }
+
 button {
     width: auto;
     height: 40px;
@@ -90,6 +94,7 @@ button {
     transition-duration: 0.4s;
     padding: 10px;
 }
+
 /*
 button:hover {
     background-color: #779AE4;
@@ -108,6 +113,7 @@ button:hover {
     margin-left: 35px;
 
 }
+
 input {
     /* to do with the scale of the search bar */
     width: 100%;
@@ -118,37 +124,38 @@ input {
 }
 
 button:hover {
-    background-color:#BC61F5;
-    color:#D7A1F9;
+    background-color: #BC61F5;
+    color: #D7A1F9;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
     cursor: pointer;
-    border:transparent;
+    border: transparent;
 }
-#search-button{
-    border:transparent;
-    border-radius:25px;
+
+#search-button {
+    border: transparent;
+    border-radius: 25px;
     float: left;
     width: 90px;
     height: 40px;
     transition-duration: 0.4s;
-    colour:#294D61;
-/*  colour:#294D61;
-  padding: 10px 50px;
-  border: none;
-  ouline: none;
-  letter-spacing: 1px;
-  cursor: pointer;*/
+    colour: #294D61;
+    /*  colour:#294D61;
+      padding: 10px 50px;
+      border: none;
+      ouline: none;
+      letter-spacing: 1px;
+      cursor: pointer;*/
 }
 
-#search-field{
+#search-field {
     /* to do with the hsap eof the search bar */
-    border:transparent;
-    border-radius:25px;
+    border: transparent;
+    border-radius: 25px;
     margin-top: 30px;
-/*    flex: 1;
-    border:none;
-    outline: none;*/
-    
+    /*    flex: 1;
+        border:none;
+        outline: none;*/
+
 }
 
 
@@ -158,7 +165,7 @@ span {
 }
 
 /** CODE TO SHOW TABLE */
-.home-elements{
+.home-elements {
     /* to do with the first collume */
     border-collapse: collapse;
     border-radius: 25px;
@@ -171,9 +178,9 @@ span {
     list-style-type: none;
     padding: 0;
     display: table;
-    background-color:#FFF5;
-    backdrop-filter:blur(7xp);
-    box-shadow:0 .4rem .8rem #0005;
+    background-color: #FFF5;
+    backdrop-filter: blur(7xp);
+    box-shadow: 0 .4rem .8rem #0005;
     width: 100%;
     table-layout: fixed;
 }
@@ -189,18 +196,19 @@ span {
 
 .home-elements li:first-child {
     font-weight: bold;
-    top:50px;
-    left:50px;
+    top: 50px;
+    left: 50px;
     border-radius: 25px;
     background-color: #0000000b;
-/*background-color: #7852A9;*/
-/*background-color: #AF6FAB;*/
-background-color: #924DBF;
+    /*background-color: #7852A9;*/
+    /*background-color: #AF6FAB;*/
+    background-color: #924DBF;
 }
 
 .home-elements ul ul {
     border-top: 1px solid #ddd;
 }
+
 /*.home-elements ul li a  {
 background-color: #924DBF;
 }*/
@@ -278,7 +286,7 @@ background-color: #924DBF;
         background: #fff;
         border: 1px solid #ddd;
         bottom: 25px;
-        box-shadow: 5px 5px 10px rgba(0,0,0,0.1);
+        box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
         left: 25px;
         padding: 15px;
         position: absolute;
