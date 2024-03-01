@@ -161,9 +161,10 @@ function nutritionInformation(arrayData, ev) {
     const info = arrayData[dataIndex];
 
     /** GENERATE HTML CONTENT FOR NUTRITIONAL INFORMATION */
+    // TODO: Update this code, transform it in a dynamic content
     if (info['nutrition-per-100g']) {
         modal.querySelector(".modal-content").innerHTML = `
-            <h3>Nutritional Information</h3>
+            <h3>Nutritional Information per 100 g</h3>
             <ul>
                 <li>Energy: ${info['nutrition-per-100g'].energy} kJ</li>
                 <li>Protein: ${info['nutrition-per-100g'].protein} g</li>
@@ -177,7 +178,7 @@ function nutritionInformation(arrayData, ev) {
         `;
     } else {
         modal.querySelector(".modal-content").innerHTML = `
-            <h3>Nutritional Information</h3>
+            <h3>Nutritional Information per 100 ml</h3>
             <ul>
                 <li>Energy: ${info['nutrition-per-100ml'].energy} kJ</li>
                 <li>Protein: ${info['nutrition-per-100ml'].protein} g</li>
@@ -226,9 +227,7 @@ function insertData(entryArray) {
 
     const nutritionInfo = document.querySelector('#nutrition-dropdown');
 
-    // TODO: finnish this logic, to add nutrition information to the main array
     nutritionInfo.addEventListener('change', function (ev) {
-        // console.log(ev.target.value);
         if (ev.target.value === 'nutrition-per-100g') {
             document.getElementById('nutrition-form').innerHTML = formPerGrams();
         } else if (ev.target.value === 'nutrition-per-100ml') {
@@ -241,12 +240,24 @@ function insertData(entryArray) {
         let inputId = document.getElementById('id-input').value;
         let inputName = document.getElementById('name-input').value;
         let inputTags = document.getElementById('tag-input').value;
+        let nutriInfos = document.querySelectorAll(`[id*="-info"]`);
+        let nutriData = {};
+
+
+        console.log(nutriInfos)
+
+        nutriInfos.forEach(info => {
+            if (info.value.trim() !== '') {
+                nutriData[info.getAttribute('name')] = info.value;
+            }
+        });
 
         /** CREATE NEW ELEMENT OBJECT */
         const newElement = {
             id: inputId,
             name: inputName,
-            tags: [inputTags]
+            tags: [inputTags],
+            [nutritionInfo.value]: nutriData
         };
 
         /** PUSH THE NEW ELEMENT TO THE ARRAY */
@@ -254,7 +265,7 @@ function insertData(entryArray) {
 
         /** CALL THE MAIN FUNCTION AND SET THE NEW DATA TO UPDATE THE TABLE */
         retrieveData(entryArray);
-        alertHandler(closeManager, 'insert');
+        alertHandler(closeManager, 'new-elements');
     });
 
     document.getElementById('cancel-button').addEventListener('click', closeManager);
@@ -281,7 +292,7 @@ function insertTags(inputEntry, info) {
     tagManager.innerHTML = `<form id="tag-manager-form">
                                 <label for="tag-input"></label>
                                 <input id="tag-input" name="tag-input-name" placeholder="Insert a new tag name">
-                                <button type="submit" id=" add_tag">Add Tag</button>
+                                <button type="submit" id="add-tag">Add Tag</button>
                                 <button type="button" id="cancel-button">Cancel</button>
                             </form>`;
 
@@ -359,6 +370,7 @@ function editTags(inputEntry, info) {
  */
 function alertHandler(closeManager, type) {
     let alerts = document.getElementById("alert-container");
+    const insertElementsMessage = "Elements inserted successfully!!";
     const insertMessage = "Tag inserted successfully!!";
     const editMessage = "Tag edited successfully!!";
 
@@ -368,10 +380,17 @@ function alertHandler(closeManager, type) {
         alertBox.classList.add("alert-msg", "slide-in");
 
         /** ADD MESSAGE TO ALERT BOX */
-        let alertMsg =
-            (type === 'insert') ?
-                document.createTextNode(insertMessage) :
-                document.createTextNode(editMessage);
+        let alertMsg;
+        switch (type) {
+            case 'insert':
+                alertMsg = document.createTextNode(insertMessage);
+                break;
+            case 'edit':
+                alertMsg = document.createTextNode(editMessage);
+                break;
+            default:
+                alertMsg = document.createTextNode(insertElementsMessage);
+        }
 
         alertBox.appendChild(alertMsg);
 
@@ -412,137 +431,137 @@ function login() {
 /** HELPER FUNCTION */
 function formPerGrams() {
     return gForm = `
-        <label for="energy-field">Energy: </label>
-        <input type="text" id="energy-field">
+        <label for="energy-info">Energy: </label>
+        <input type="text" id="energy-info" name="energy">
         
-        <label for="protein-field">Protein: </label>
-        <input type="text" id="protein-field">
+        <label for="protein-info">Protein: </label>
+        <input type="text" id="protein-info" name="protein">
         
-        <label for="fat-field">Fat: </label>
-        <input type="text" id="fat-field">
+        <label for="fat-info">Fat: </label>
+        <input type="text" id="fat-info" name="fat">
         
-        <label for="saturated-fat-field">Saturated-fat: </label>
-        <input type="text" id="saturated-fat-field">
+        <label for="saturated-fat-info">Saturated-fat: </label>
+        <input type="text" id="saturated-fat-info" name="saturated">
         
-        <label for="carbohydrate-field">Carbohydrate: </label>
-        <input type="text" id="carbohydrate-field">
+        <label for="carbohydrate-info">Carbohydrate: </label>
+        <input type="text" id="carbohydrate-info" name="carbohydrate">
         
-        <label for="sugars-field">Sugars: </label>
-        <input type="text" id="sugars-field">
+        <label for="sugars-info">Sugars: </label>
+        <input type="text" id="sugars-info" name="sugars">
         
-        <label for="dietary-fibre-field">Dietary-fibre: </label>
-        <input type="text" id="dietary-fibre-field">
+        <label for="dietary-fibre-info">Dietary-fibre: </label>
+        <input type="text" id="dietary-fibre-info" name="dietary-fibre">
         
-        <label for="sodium-field">Sodium: </label>
-        <input type="text" id="sodium-field">
+        <label for="sodium-info">Sodium: </label>
+        <input type="text" id="sodium-info" name="sodium">
         
-        <label for="potassium-field">Potassium: </label>
-        <input type="text" id="potassium-field">
+        <label for="potassium-info">Potassium: </label>
+        <input type="text" id="potassium-info" name="potassium">
         
-        <label for="trans-fat-field">Trans-fat: </label>
-        <input type="text" id="trans-fat-field">
+        <label for="trans-fat-info">Trans-fat: </label>
+        <input type="text" id="trans-fat-info" name="trans-fat">
         
-        <label for="polyunsaturated-fat-field">Polyunsaturated-fat: </label>
-        <input type="text" id="polyunsaturated-fat-field">
+        <label for="polyunsaturated-fat-info">Polyunsaturated-fat: </label>
+        <input type="text" id="polyunsaturated-fat-info" name="polyunsaturated-fat">
         
-        <label for="monounsaturated-fat-field">Monounsaturated-fat: </label>
-        <input type="text" id="monounsaturated-fat-field">
+        <label for="monounsaturated-fat-info">Monounsaturated-fat: </label>
+        <input type="text" id="monounsaturated-fat-info" name="monounsaturated-fat">
         
-        <label for="vitamin-b3-field">Vitamin-b3: </label>
-        <input type="text" id="vitamin-b3-field">
+        <label for="vitamin-b3-info">Vitamin-b3: </label>
+        <input type="text" id="vitamin-b3-info" name="vitamin-b3">
         
-        <label for="magnesium-field">Magnesium: </label>
-        <input type="text" id="magnesium-field">
+        <label for="magnesium-info">Magnesium: </label>
+        <input type="text" id="magnesium-info" name="magnesium">
         
-        <label for="protein-field">Protein: </label>
-        <input type="text" id="protein-field">
+        <label for="protein-info">Protein: </label>
+        <input type="text" id="protein-info" name="protein">
         
-        <label for="vitamin-b1-field">Vitamin-b1: </label>
-        <input type="text" id="vitamin-b1-field">
+        <label for="vitamin-b1-info">Vitamin-b1: </label>
+        <input type="text" id="vitamin-b1-info" name="vitamin-b1">
         
-        <label for="vitamin-b2-field">Vitamin-b2: </label>
-        <input type="text" id="vitamin-b2-field">
+        <label for="vitamin-b2-info">Vitamin-b2: </label>
+        <input type="text" id="vitamin-b2-info" name="vitamin-b2">
         
-        <label for="vitamin-b3-field">Vitamin-b3: </label>
-        <input type="text" id="vitamin-b3-field">
+        <label for="vitamin-b3-info">Vitamin-b3: </label>
+        <input type="text" id="vitamin-b3-info" name="vitamin-b3">
         
-        <label for="vitamin-b5-field">Vitamin-b5: </label>
-        <input type="text" id="vitamin-b5-field">
+        <label for="vitamin-b5-info">Vitamin-b5: </label>
+        <input type="text" id="vitamin-b5-info" name="vitamin-b5">
         
-        <label for="vitamin-b6-field">Vitamin-b6: </label>
-        <input type="text" id="vitamin-b6-field">
+        <label for="vitamin-b6-info">Vitamin-b6: </label>
+        <input type="text" id="vitamin-b6-info" name="vitamin-b6">
         
-        <label for="vitamin-b9-field">Vitamin-b9: </label>
-        <input type="text" id="vitamin-b9-field">
+        <label for="vitamin-b9-info">Vitamin-b9: </label>
+        <input type="text" id="vitamin-b9-info" name="vitamin-b9">
         
-        <label for="vitamin-c-field">Vitamin-c: </label>
-        <input type="text" id="vitamin-c-field">
+        <label for="vitamin-c-info">Vitamin-c: </label>
+        <input type="text" id="vitamin-c-info" name="vitamin-c">
         
-        <label for="calcium-field">Calcium: </label>
-        <input type="text" id="calcium-field">
+        <label for="calcium-info">Calcium: </label>
+        <input type="text" id="calcium-info" name="calcium">
         
-        <label for="iron-field">Iron: </label>
-        <input type="text" id="iron-field">
+        <label for="iron-info">Iron: </label>
+        <input type="text" id="iron-info" name="iron">
         
-        <label for="phosphorus-field">Phosphorus: </label>
-        <input type="text" id="phosphorus-field">
+        <label for="phosphorus-info">Phosphorus: </label>
+        <input type="text" id="phosphorus-info" name="phosphorus">
         
-        <label for="zinc-field">Zinc: </label>
-        <input type="text" id="zinc-field">
+        <label for="zinc-info">Zinc: </label>
+        <input type="text" id="zinc-info" name="zinc">
         
-        <label for="manganese-field">Manganese: </label>
-        <input type="text" id="manganese-field">
+        <label for="manganese-info">Manganese: </label>
+        <input type="text" id="manganese-info" name="manganese">
         
-        <label for="vitamin-e-field">Vitamin-e: </label>
-        <input type="text" id="vitamin-e-field">
+        <label for="vitamin-e-info">Vitamin-e: </label>
+        <input type="text" id="vitamin-e-info" name="vitamin-e">
         
-        <label for="vitamin-k-field">Vitamin-k: </label>
-        <input type="text" id="vitamin-k-field">
+        <label for="vitamin-k-info">Vitamin-k: </label>
+        <input type="text" id="vitamin-k-info" name="vitamin-k">
     `;
 }
 
 function formPerMl() {
     return mlForm = `
-        <label for="energy-field">Energy: </label>
-        <input type="text" id="energy-field">
+        <label for="energy-info">Energy: </label>
+        <input type="text" id="energy-info" name="energy">
         
-        <label for="protein-field">Protein: </label>
-        <input type="text" id="protein-field">
+        <label for="protein-info">Protein: </label>
+        <input type="text" id="protein-info" name="protein">
         
-        <label for="fat-field">Fat: </label>
-        <input type="text" id="fat-field">
+        <label for="fat-info">Fat: </label>
+        <input type="text" id="fat-info" name="fat">
         
-        <label for="saturated-fat-field">Saturated-fat: </label>
-        <input type="text" id="saturated-fat-field">
+        <label for="saturated-fat-info">Saturated-fat: </label>
+        <input type="text" id="saturated-fat-info" name="saturated-fat">
         
-        <label for="trans-fat-field">Trans-fat: </label>
-        <input type="text" id="trans-fat-field">
+        <label for="trans-fat-info">Trans-fat: </label>
+        <input type="text" id="trans-fat-info" name="trans-fat">
         
-        <label for="polyunsaturated-fat-field">Polyunsaturated-fat: </label>
-        <input type="text" id="polyunsaturated-fat-field">
+        <label for="polyunsaturated-fat-info">Polyunsaturated-fat: </label>
+        <input type="text" id="polyunsaturated-fat-info" name="polyunsaturated-fat">
         
-        <label for="monounsaturated-fat-field">Monounsaturated-fat: </label>
-        <input type="text" id="monounsaturated-fat-field">
+        <label for="monounsaturated-fat-info">Monounsaturated-fat: </label>
+        <input type="text" id="monounsaturated-fat-info" name="monounsaturated-fat">
         
-        <label for="carbohydrate-field">Carbohydrate: </label>
-        <input type="text" id="carbohydrate-field">
+        <label for="carbohydrate-info">Carbohydrate: </label>
+        <input type="text" id="carbohydrate-info" name="carbohydrate">
         
-        <label for="sugars-field">Sugars: </label>
-        <input type="text" id="sugars-field">
+        <label for="sugars-info">Sugars: </label>
+        <input type="text" id="sugars-info" name="sugars">
         
-        <label for="dietary-fibre-field">Dietary-fibre: </label>
-        <input type="text" id="dietary-fibre-field">
+        <label for="dietary-fibre-info">Dietary-fibre: </label>
+        <input type="text" id="dietary-fibre-info" name="dietary-fibre">
         
-        <label for="sodium-field">Sodium: </label>
-        <input type="text" id="sodium-field">
+        <label for="sodium-info">Sodium: </label>
+        <input type="text" id="sodium-info" name="sodium">
         
-        <label for="potassium-field">Potassium: </label>
-        <input type="text" id="potassium-field">
+        <label for="potassium-info">Potassium: </label>
+        <input type="text" id="potassium-info" name="potassium">
         
-        <label for="calcium-field">Calcium: </label>
-        <input type="text" id="calcium-field">
+        <label for="calcium-info">Calcium: </label>
+        <input type="text" id="calcium-info" name="calcium">
         
-        <label for="vitamin-e-field">Vitamin-e: </label>
-        <input type="text" id="vitamin-e-field">
+        <label for="vitamin-e-info">Vitamin-e: </label>
+        <input type="text" id="vitamin-e-info" name="vitamin-e">
     `;
 }
