@@ -161,36 +161,20 @@ function nutritionInformation(arrayData, ev) {
     const info = arrayData[dataIndex];
 
     /** GENERATE HTML CONTENT FOR NUTRITIONAL INFORMATION */
-    // TODO: Update this code, transform it in a dynamic content
-    if (info['nutrition-per-100g']) {
-        modal.querySelector(".modal-content").innerHTML = `
-            <h3>Nutritional Information per 100 g</h3>
-            <ul>
-                <li>Energy: ${info['nutrition-per-100g'].energy} kJ</li>
-                <li>Protein: ${info['nutrition-per-100g'].protein} g</li>
-                <li>Fat: ${info['nutrition-per-100g'].fat} g</li>
-                <li>Saturated Fat: ${info['nutrition-per-100g']['saturated-fat']} g</li>
-                <li>Carbohydrate: ${info['nutrition-per-100g'].carbohydrate} g</li>
-                <li>Sugars: ${info['nutrition-per-100g'].sugars} g</li>
-                <li>Dietary Fibre: ${info['nutrition-per-100g']['dietary-fibre']} g</li>
-                <li>Sodium: ${info['nutrition-per-100g'].sodium} mg</li>
-            </ul>
-        `;
-    } else {
-        modal.querySelector(".modal-content").innerHTML = `
-            <h3>Nutritional Information per 100 ml</h3>
-            <ul>
-                <li>Energy: ${info['nutrition-per-100ml'].energy} kJ</li>
-                <li>Protein: ${info['nutrition-per-100ml'].protein} g</li>
-                <li>Fat: ${info['nutrition-per-100ml'].fat} g</li>
-                <li>Saturated Fat: ${info['nutrition-per-100ml']['saturated-fat']} g</li>
-                <li>Carbohydrate: ${info['nutrition-per-100ml'].carbohydrate} g</li>
-                <li>Sugars: ${info['nutrition-per-100ml'].sugars} g</li>
-                <li>Dietary Fibre: ${info['nutrition-per-100ml']['dietary-fibre']} g</li>
-                <li>Sodium: ${info['nutrition-per-100ml'].sodium} mg</li>
-            </ul>
-        `;
+    let modalContentHTML = '';
+    let modalHeader = '';
+
+    if (info.hasOwnProperty("nutrition-per-100g")) {
+        modalHeader = `<h3>Nutritional Information per 100 g</h3><ul>`;
+        modalContentHTML = generateNutritionContent(info["nutrition-per-100g"], modalHeader);
     }
+
+    if (info.hasOwnProperty("nutrition-per-100ml")) {
+        modalHeader = `<h3>Nutritional Information per 100 ml</h3><ul>`;
+        modalContentHTML = generateNutritionContent(info["nutrition-per-100ml"], modalHeader);
+    }
+
+    modal.querySelector(".modal-content").innerHTML = modalContentHTML;
 
     openModal();
 }
@@ -428,7 +412,20 @@ function login() {
     });
 }
 
-/** HELPER FUNCTION */
+/**
+ * HELPER FUNCTIONS
+ */
+
+
+function generateNutritionContent(nutritionData, header) {
+    let html = header;
+    for (const key in nutritionData) {
+        html += `<li>${key}: ${nutritionData[key]}</li>`;
+    }
+    html += `</ul>`;
+    return html;
+}
+
 function formPerGrams() {
     return gForm = `
         <label for="energy-info">Energy: </label>
