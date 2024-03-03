@@ -306,7 +306,7 @@ span {
     border-radius: 30px;
     width: 500px;
 }
-#add_tag{
+#add-tag{
     border: transparent;
     border-radius: 10px;
     float: left;
@@ -389,7 +389,7 @@ span {
 
 .home-elements a {
     text-decoration: none;
-    color: 	rgb(192,192,192, 0.5);
+    color: rgb(75, 0, 130, 0.9);
     cursor: pointer;
 }
 .fields{
