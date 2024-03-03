@@ -407,7 +407,7 @@ function login() {
             fieldEmail.style.borderColor = "red";
             fieldPassword.style.borderColor = "red";
         } else {
-            window.location.replace("http://localhost/webdev-forms/index.html");
+            window.location.replace("index.html");
         }
     });
 }

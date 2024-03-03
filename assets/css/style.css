@@ -88,6 +88,7 @@ h1{
     background-position: 10px 10px;
     background-repeat: no-repeat;
     padding: 12px 20px 12px 40px;
+   
 }
 .search-bar {
     margin-right: 200px;
@@ -110,7 +111,7 @@ h1{
     color: white;
 }
 ::placeholder{
-    color:white;
+    color:purple;
 }
 
 button add_tag{
