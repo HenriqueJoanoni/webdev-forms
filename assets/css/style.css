@@ -4,152 +4,189 @@
     padding: 0;
     font-family: helvetica, arial, sans-serif;
 }
-
 .body-login {
     display: flex;
     justify-content: center;
     align-items: center;
-    width:100%;
-    height: 120vh;
+    width: 100%;
+    height: 100vh;
     background-position: center;
     background-size: cover;
     position: relative;
     background-repeat: no-repeat;
-    background-position: center center;
     background-attachment: fixed;
     background-image: url("../img/background.png");
-
 }
-
 body {
-    margin: 0;
     padding: 0;
     background-size: cover;
 }
-
-.general {
-      background-image: url("../img/background.png"); 
-    display: flex;
+.general_login{
     flex-direction:column;
     background-color:#FFF5;
-    backdrop-filter:blur(7xp);
+    height: 450px;
+    width: 500px;
+    backdrop-filter:blur(7px);
     box-shadow:0 .4rem .8rem #0005;
     border:60px solid #FFF5;
-/*    border-radius:25px;*/
- background-repeat: no- repeat;
+    border-radius:30px;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-top: 50px;
+}
+.id_button{
+    color:rgb(215, 161, 249);
+    cursor: pointer;
+    border:transparent;
+    justify-content: center;
+    align-items: center;
+    font-size:15px;
+    margin-top: 30px;
+    margin-left: 30px;
+    height:45px;
+    width:290px;
+    padding: 5px;
+    display:flex;
+    border-radius: 25px;
+
+}
+
+h1{
+    font-size: 35px;
+    text-align:center;
+color: white;
+}
+.general {
+    background-image: url("../img/background.png");
+    flex-direction:column;
+    background-color:#FFF5;
+    height: auto ;
+    backdrop-filter:blur(7px);
+    box-shadow:0 .4rem .8rem #0005;
+    border:60px solid #FFF5;
+    background-repeat: no-repeat;
     background-attachment: fixed;
     display: flex;
     justify-content: center;
     align-items: center;
 }
-
-.search-bar{
-    margin-right:200px;
-}
-/*
-section general {
-     this is my background 
-    display: flex;
-    flex-direction:column;
-        background:linear-gradient(#0C7075, #6DA5C0);
-    background-image: url("../img/background.png"); 
-    background-position: center;
-    background-size:cover;
-    position: relative;
-    background-repeat: no- repeat;
-    background-attachment: fixed;
-    border:60px solid #FFF5;
-    border-radius:25px; this to make have a border not the colours though 
-}*/
 #email{
-    border:black thin solid;
-    border-top-right-radius:25px;
-    border-bottom-left-radius:25px;
+    border:thin solid white;
+border-radius: 25px;
     width: 325px;
-    height: 35px;
-   flex-wrap: wrap;
+    height: 15px;
+    display:flex;
+    flex-wrap: wrap;
+    margin-left:15px;
+    margin-top:40px;
+    background:transparent;
+    background-image: url("../img/user_vivi.png");
+    font-size:16px;
+    background-position: 10px 10px;
+    background-repeat: no-repeat;
+    padding: 12px 20px 12px 40px;
 }
-#password{
-    border:black thin solid;
-    border-top-right-radius:25px;
-    border-bottom-left-radius:25px;
+.search-bar {
+    margin-right: 200px;
+}
+#password {
+    border:thin solid white;
+    display:flex;
+    flex-wrap:wrap;
     width: 325px;
-    height: 35px;
-  margin-left: 40px;
-  felx-wrap: wrap;
+    height: 15px;
+    margin-left: 10px;
+    margin-top:30px;
+border-radius:25px;
+    background:transparent;
+    background-image: url("../img/security_vivi.png");
+    font-size:16px;
+    background-position: 10px 10px;
+    background-repeat: no-repeat;
+    padding: 12px 20px 12px 40px;
+    color: white;
 }
-.container{
+::placeholder{
+    color:white;
+}
+
+button add_tag{
+    margin-top: 50px;
+}
+.container {
     backdrop-filter: blur;
 }
-button {
+#search-button{
     width: auto;
     height: 40px;
     border: none;
-    background-color: #31304D;
+    background-color: rgba(49, 48, 77, 0.4);
     color: white;
     border-radius: 10px;
     transition-duration: 0.4s;
     padding: 10px;
 }
-/*
-button:hover {
-    background-color: #779AE4;
-    color: #48484BFF;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
-    cursor: pointer;
-}*/
-.search-container {
-    /*    this is to do with the  search bar */
-    /*    max-width: 990px;*/
-    float: left;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-left: 35px;
-
-}
-input {
-    /* to do with the scale of the search bar */
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 15px;
-    border-radius: 10px;
-
-}
 
 button:hover {
     background-color:#BC61F5;
     color:#D7A1F9;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     cursor: pointer;
     border:transparent;
+    padding: 5px;
 }
-#search-button{
-    border:transparent;
-    border-radius:25px;
+.container{
+    backdrop-filter: blur;
+}
+.search-container {
+    float: left;
+    display: flex;
+    flex-direction: column;
+    margin-left: 35px;
+}
+.search-bar{
+    margin-right: 990px;
+    float: left;
+}
+input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 15px;
+    border-radius: 10px;
+}
+
+button:hover {
+    background-color: #BC61F5;
+    color: #D7A1F9;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+    cursor: pointer;
+    border: transparent;
+}
+
+#search-button {
+    border: transparent;
+    border-radius: 25px;
     float: left;
     width: 90px;
     height: 40px;
     transition-duration: 0.4s;
-    colour:#294D61;
-/*  colour:#294D61;
-  padding: 10px 50px;
-  border: none;
-  ouline: none;
-  letter-spacing: 1px;
-  cursor: pointer;*/
+    margin-left: 70px;
+    margin-top: 10px;
 }
-
 #search-field{
-    /* to do with the hsap eof the search bar */
     border:transparent;
     border-radius:25px;
-    margin-top: 30px;
-/*    flex: 1;
-    border:none;
-    outline: none;*/
-    
+    margin-top: 70px;
+    margin-left: 70px;
+    background-image: url("../img/search_vivi.png");
+    font-size:16px;
+    background-position: 10px 10px;
+    background-repeat: no-repeat;
+    margin-bottom: 5px;
+    padding: 12px 20px 12px 40px;
 }
 
 span {
@@ -157,57 +194,224 @@ span {
     color: rgba(255, 0, 0, 0.65);
 }
 
+#tag-manager-form{
+    display: flex;
+    align-items: flex-start;
+    width:100%;
+    height: 60vh;
+    background-position: center;
+    background-size: cover;
+    position: relative;
+    background-repeat: no-repeat;
+    border-radius:25px;
+    margin-right: 800px;
+    margin-top:40px;
+}
+#tag-input{
+    border-radius:25px;
+    width: 370px;
+    height: 15px;
+    border:transparent;
+    margin-bottom: 55px;
+    background-size: fixed;
+    margin-top: 15px;
+    margin-left: 45px;
+    margin-right: 15px;
+    padding: 10px;
+    display:flex;
+    flex-direction: row;
+    background-image: url("../img/type_vivi.png");
+    font-size:16px;
+    background-position: 10px 10px;
+    background-repeat: no-repeat;
+    padding: 12px 20px 12px 40px;
+}
+.tag-input{
+    border-radius:25px;
+    border:transparent;
+    margin-right: 50px;
+    margin-left: 10px;
+    margin-top: 25px;
+    display: flex;
+    align-items: center;
+    background-image: url("../img/edit_vivi.png");
+    font-size:16px;
+    background-position: 10px 10px;
+    background-repeat: no-repeat;
+    margin-bottom: 5px;
+    padding: 12px 20px 12px 40px;
+    /*    flex-wrap: wrap;*/
+
+}
+#nutrition-dropdown.element-insert{
+    border: transparent;
+    border-radius: 10px;
+    float: left;
+    width: 160px;
+    height: 40px;
+    transition-duration: 0.4s;
+    background-color: #BC61F5;
+    padding: 10px;
+    display:flex;
+    align-items: center;
+    margin-right: 20px;
+    margin-left:15px;
+    margin-top: 20px;
+    margin-bottom: 25px;
+}
+#nutrition-add-element{
+    border: transparent;
+    border-radius: 10px;
+    float: left;
+    width: 160px;
+    height: 40px;
+    transition-duration: 0.4s;
+    background-color: #BC61F5;
+    padding: 10px;
+    display:flex;
+    align-items: center;
+    margin-left: 20px;
+    margin-top: 20px;
+    margin-right: 5px;
+}
+.dropdown-insert{
+    display:flex;
+    flex-direction: column;
+}
+#insert-item.btn{
+    display: flex;
+    float: right;
+    margin-left: 950px;
+    margin-bottom: 15px;
+    margin-right: 20px;
+    text-align: center;
+    width: auto;
+    height: 40px;
+    border: none;
+    color: white;
+    border-radius: 10px;
+    transition-duration: 0.4s;
+    padding: 10px;
+}
+#insert-manager-form{
+    border: transparent;
+    border-radius: 10px;
+    margin-bottom: 220vh;
+    display:flex;
+    flex-wrap: wrap;
+    margin-right: 20px;
+    margin-left:15px;
+}
+#id-input.element-insert{
+    border-radius: 30px;
+    width: 500px;
+}
+#add-tag{
+    border: transparent;
+    border-radius: 10px;
+    float: left;
+    width: 90px;
+    height: 40px;
+    transition-duration: 0.4s;
+    background-color: #BC61F5;
+    padding: 10px;
+    display:flex;
+    align-items: center;
+    margin-top: 20px;
+}
+
+#update_tag{
+    border: transparent;
+    border-radius: 10px;
+    float: left;
+    width: 90px;
+    height: 40px;
+    transition-duration: 0.4s;
+    background-color: #BC61F5;
+    padding: 10px;
+    display:flex;
+    align-items: center;
+    margin-top: 20px;
+}
+#cancel-button{
+    border: transparent;
+    border-radius: 10px;
+    border-color: plum;
+    float: left;
+    width: 90px;
+    height: 40px;
+    transition-duration: 0.4s;
+    background-color: #BC61F5;
+    padding: 10px;
+    margin-top: 20px;
+    margin-left: 5px;
+}
+#nutrition-form{
+    width: 90px;
+    height: 40px;
+}
 /** CODE TO SHOW TABLE */
 .home-elements{
-    /* to do with the first collume */
     border-collapse: collapse;
     border-radius: 25px;
     margin-top: 3%;
-
 }
-
 .home-elements ul {
-    /* to be shown as a table in the first place */
     list-style-type: none;
     padding: 0;
     display: table;
     background-color:#FFF5;
-    backdrop-filter:blur(7xp);
+    backdrop-filter:blur(7px);
     box-shadow:0 .4rem .8rem #0005;
     width: 100%;
     table-layout: fixed;
 }
-
 .home-elements li {
     display: table-cell;
     padding: 8px;
-    /*    border: 1px solid #ddd;*/
     width: 25%;
     box-sizing: border-box;
-
 }
 
 .home-elements li:first-child {
     font-weight: bold;
     top:50px;
     left:50px;
-    border-radius: 25px;
+    border-top-right-radius:25px;
+    border-bottom-right-radius:25px;
     background-color: #0000000b;
-/*background-color: #7852A9;*/
-/*background-color: #AF6FAB;*/
-background-color: #924DBF;
+    background-color: rgba(146, 77 , 191, 0.2);
 }
 
 .home-elements ul ul {
     border-top: 1px solid #ddd;
 }
-/*.home-elements ul li a  {
-background-color: #924DBF;
-}*/
+
 .home-elements a {
     text-decoration: none;
-    color: #3A3985;
+    color: rgb(75, 0, 130, 0.9);
     cursor: pointer;
+}
+.fields{
+    border-radius: 35px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    margin-bottom: 20px;
+    width: 370px;
+    height: 15px;
+    align-items: flex-start;
+    /*    width:100%;*/
+    height: 60vh;
+    background-position: center;
+    background-size: cover;
+    position: relative;
+}
+.element-insert{
+    border-radius: 35px;
+    border: transparent;
+    width: 500px;
+    margin-left: 50px;
 }
 
 /** MODAL */
@@ -225,7 +429,6 @@ background-color: #924DBF;
     border: 1px solid #ddd;
     border-radius: 15px;
 }
-
 .modal .flex {
     display: flex;
     align-items: flex-start;
@@ -236,22 +439,19 @@ background-color: #924DBF;
     display: inline-block;
     padding: 0.8rem 1.4rem;
     font-weight: 700;
-    background-color: black;
     color: white;
     border-radius: 5px;
     text-align: center;
     font-size: 1em;
     background-color: #FFC7BA;
+    cursor: pointer;
 }
-
 .btn-close {
     transform: translate(10px, -10px);
     padding: 0.5rem 0.7rem;
-    background: #fff;
     cursor: pointer;
     background-color: #924DBF;
 }
-
 .overlay {
     position: fixed;
     top: 0;
@@ -260,7 +460,7 @@ background-color: #924DBF;
     right: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.5);
+    /*    background: rgba(0, 0, 0, 0.5);*/
     backdrop-filter: blur(3px);
     z-index: 1;
 }
@@ -277,7 +477,7 @@ background-color: #924DBF;
         background: #fff;
         border: 1px solid #ddd;
         bottom: 25px;
-        box-shadow: 5px 5px 10px rgba(0,0,0,0.1);
+        box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
         left: 25px;
         padding: 15px;
         position: absolute;
@@ -329,7 +529,7 @@ background-color: #924DBF;
 }
 
 /* TODO: fix this, to make the form and the whole page responsible */
-@media (max-width: 600px) {
+@media (max-width: 800px) {
     .container {
         padding: 0 10px;
     }
