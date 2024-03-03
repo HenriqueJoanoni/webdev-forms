@@ -422,9 +422,11 @@ span {
     width: 450px;
     padding: 1.3rem;
     min-height: 250px;
-    position: absolute;
+    position: fixed;
     z-index: 2;
-    top: 20%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     background-color: #DFC5FE;
     border: 1px solid #ddd;
     border-radius: 15px;
@@ -447,11 +449,24 @@ span {
     cursor: pointer;
 }
 .btn-close {
-    transform: translate(10px, -10px);
+    transition: all 0.3s ease;
     padding: 0.5rem 0.7rem;
     cursor: pointer;
     background-color: #924DBF;
+    border: none;
+    color: white;
+    border-radius: 5px;
 }
+
+.btn-close:hover {
+    background-color: #7e3aa1;
+}
+
+.btn-close:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(146, 77, 191, 0.4);
+}
+
 .overlay {
     position: fixed;
     top: 0;
