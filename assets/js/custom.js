@@ -214,13 +214,13 @@ function insertData(entryArray) {
                                 <input type="text" class="element-insert" id="id-input" placeholder=" Add ID"/>
                                 <input type="text" class="element-insert" id="name-input" placeholder="Add Name"/>
                                 <input type="text" class="element-insert" id="tag-input" placeholder="Add a Tag"/>
-                                <select class="element-insert" id="nutrition-dropdown">
+                               <div class="dropdown-insert"> <select class="element-insert" id="nutrition-dropdown">
                                     <option value="0">Select The Volume</option>
                                     <option value="nutrition-per-100g">Per g</option>
                                     <option value="nutrition-per-100ml">Per ml</option>
                                 </select>
-                                <div id="nutrition-form"></div>
-                                <button type="submit">Add Element</button>
+                                <div id="nutrition-form"></div></div>
+                                <button type="submit" id="nutrition-add-element">Add Element</button>
                                 <button type="button" id="cancel-button">Cancel</button>
                             </form>`;
 
@@ -281,7 +281,7 @@ function insertTags(inputEntry, info) {
     tagManager.innerHTML = `<form id="tag-manager-form">
                                 <label for="tag-input"></label>
                                 <input id="tag-input" name="tag-input-name" placeholder="Insert a new tag name">
-                                <button type="submit" id=" add_tag">Add Tag</button>
+                                <button type="submit" id="add_tag">Add Tag</button>
                                 <button type="button" id="cancel-button">Cancel</button>
                             </form>`;
 
@@ -342,7 +342,7 @@ function editTags(inputEntry, info) {
 
     tagManager.innerHTML = `<form id="tag-manager-form">
                                 ${tagInputsHTML}
-                                <button type="submit" >Update Tags</button>
+                              <button type="submit"  id="update_tag">Update Tags</button>
                                 <button type="button" id="cancel-button">Cancel</button>
                             </form>`;
 
@@ -412,6 +412,7 @@ function login() {
 /** HELPER FUNCTION */
 function formPerGrams() {
     return gForm = `
+    <div class="fields">
         <label for="energy-field">Energy: </label>
         <input type="text" id="energy-field">
         
@@ -498,11 +499,13 @@ function formPerGrams() {
         
         <label for="vitamin-k-field">Vitamin-k: </label>
         <input type="text" id="vitamin-k-field">
+    </div>
     `;
 }
 
 function formPerMl() {
     return mlForm = `
+        <div class="fields">
         <label for="energy-field">Energy: </label>
         <input type="text" id="energy-field">
         
@@ -544,5 +547,6 @@ function formPerMl() {
         
         <label for="vitamin-e-field">Vitamin-e: </label>
         <input type="text" id="vitamin-e-field">
+    </div>
     `;
 }
